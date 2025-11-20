@@ -1,2 +1,15 @@
-# This file will automatically update with entries for new content after a build and reload.
+Items: {
+	VictoriousRod: {
+		DisplayName: Victorious Rod
+		Tooltip:
+			'''
+			Fires three lines at once
+			Can only fish up enemies during a Blood Moon
+			Only lures in the most powerful of Blood Moon fish
+			Fishes up a [c/700808:villain] if they are not in the world yet
+			"While wielding this rod, you feel the power of victor-y flowing through your body"
+			'''
+	}
+}
 
+Projectiles.VictoriousBobber.DisplayName: Victorious Bobber

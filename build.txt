@@ -1,3 +1,4 @@
 displayName = SSCLS Roleplay Addon
 author = Tsuki
 version = 0.1
+modReferences = CalamityMod
