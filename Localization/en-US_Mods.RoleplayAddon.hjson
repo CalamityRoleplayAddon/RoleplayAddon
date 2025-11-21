@@ -1,2 +1,10 @@
-# This file will automatically update with entries for new content after a build and reload.
-
+Items: {
+	AppleCrumble: {
+		DisplayName: Apple Crumble
+		Tooltip:
+			'''
+			{$CommonItemTooltip.MajorStats}
+			'Who would’ve thought the elemental of agony’s favorite food would be this?'
+			'''
+	}
+}
