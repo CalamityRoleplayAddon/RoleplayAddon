@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod;
 
-namespace RoleplayAddon.Content
+namespace RoleplayAddon.Content.Items.Other
 {
     public class AppleCrumble : ModItem
     {
