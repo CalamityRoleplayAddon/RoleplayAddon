@@ -1,1 +1,11 @@
-Modify this file with a description of your mod.
+A small Calamity Mod addon made for fun by a group of friends to experiment with Terraria mod development.
+This mod's content is based of a Calamity-mod centric roleplay said group of friends participated in on a private server, adding various elements
+that reference worldbuilding and characters from said roleplay.
+
+Developers:
+-Cheese (Programmer)
+-Tsuki (Programmer, Spriter)
+-Daiquiri (Spriter)
+-Blobmonster (Spriter)
+
+And special thanks to all other members of the discord server which participated in the roleplay and contributed with suggestions, testing or ideas for the mod.
