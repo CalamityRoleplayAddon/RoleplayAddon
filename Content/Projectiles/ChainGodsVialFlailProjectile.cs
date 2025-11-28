@@ -8,6 +8,8 @@ namespace RoleplayAddon.Content.Projectiles
     public class ChainGodsVialFlailProjectile : ModProjectile
     {
         bool hasHitEnemy = false;
+        NPC projTarget;
+        int timer = 0;
 
         public override void SetStaticDefaults()
         {
@@ -21,16 +23,25 @@ namespace RoleplayAddon.Content.Projectiles
             Projectile.friendly = true; //Friendly projectiles damage enemies rather than you
 
             Projectile.DamageType = DamageClass.Melee;
+            Projectile.usesLocalNPCImmunity = true; 
+            Projectile.localNPCHitCooldown = 6; 
             Projectile.scale = 0.8f;
 
-            Projectile.aiStyle = ProjAIStyleID.Flail;
+            Projectile.aiStyle = ProjAIStyleID.Harpoon;
             AIType = ProjectileID.ChainKnife;
         }
         public override bool PreAI()
         {
             if(hasHitEnemy == true)
             {
-                hasHitEnemy = false;
+                timer++;
+                Projectile.Center = projTarget.Center;
+                if(timer > 165)
+                {
+                    projTarget = null;
+                    hasHitEnemy = false;
+                    timer = 0;
+                }
                 return false;
             }
             return true;
@@ -38,6 +49,7 @@ namespace RoleplayAddon.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             hasHitEnemy = true;
+            projTarget = target;
         }
     }
 }

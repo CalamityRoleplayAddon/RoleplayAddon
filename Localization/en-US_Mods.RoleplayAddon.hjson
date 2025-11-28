@@ -12,7 +12,6 @@ Items: {
 		DisplayName: Chain God's Vial
 		Tooltip:
 			'''
-			{$CommonItemTooltip.MajorStats}
 			'Each batch of Umbrafluid was crafted alongside a core. 
 			This core allowed the Kinsmen to psychically control said batch, changing the shape of the fluid at will. 
 			Such was the case for the Goddess of Chains, even if they much preffered to avoid combat.'
@@ -22,18 +21,16 @@ Items: {
 	Umbrafluid: {
 		Tooltip:
 			'''
-			{$CommonItemTooltip.MajorStats}
-			'A rare substance concocted from the blessings of the Onyx Kinsmen's patron figures, 
+			'A rare substance concocted from the material blessings of the Onyx Kinsmen's patrons, 
 			it was bestowed only upon the clan's most respected members.'
 			'''
 		DisplayName: Umbrafluid
 	}
 
 	UmbralCutter: {
-		DisplayName: Umbral Cutter
+		DisplayName: Umbraxe
 		Tooltip:
 			'''
-			{$CommonItemTooltip.MajorStats}
 			'Umbrafluid was exceedingly versatile, being naturally fluid and malleable much like gel,
 			but being able to be quickly turned into a metallic, rigid material through manipulation of its core.'
 			'''

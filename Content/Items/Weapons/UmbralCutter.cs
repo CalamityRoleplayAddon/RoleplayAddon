@@ -13,11 +13,11 @@ namespace RoleplayAddon.Content.Items.Weapons
             Item.width = 40;
             Item.height = 40;
             Item.ResearchUnlockCount = 1;
-            Item.value = Item.sellPrice(gold: 20);
+            Item.value = Item.sellPrice(gold: 15);
             Item.rare = ModContent.RarityType<CalamityMod.Rarities.Turquoise>();
 
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
 
@@ -26,7 +26,7 @@ namespace RoleplayAddon.Content.Items.Weapons
             Item.crit = 6;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            Item.axe = 210;
+            Item.axe = 200;
             Item.attackSpeedOnlyAffectsWeaponAnimation = true; // Melee speed affects how fast the tool swings for damage purposes, but not how fast it can dig
 
         }

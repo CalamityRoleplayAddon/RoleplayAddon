@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aleks\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj": {}
+    "C:\\Users\\Gwynn\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aleks\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj": {
+    "C:\\Users\\Gwynn\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aleks\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj",
+        "projectUniqueName": "C:\\Users\\Gwynn\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj",
         "projectName": "RoleplayAddon",
-        "projectPath": "C:\\Users\\Aleks\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj",
-        "packagesPath": "C:\\Users\\Aleks\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aleks\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\obj\\",
+        "projectPath": "C:\\Users\\Gwynn\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\RoleplayAddon.csproj",
+        "packagesPath": "C:\\Users\\Gwynn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Gwynn\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\RoleplayAddon\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Aleks\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Gwynn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,8 +39,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -65,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

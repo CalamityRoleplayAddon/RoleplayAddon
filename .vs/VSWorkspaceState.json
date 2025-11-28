@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Content"
+    "\\Content",
+    "\\Localization"
   ],
   "SelectedNode": "\\Content\\ChainGodsVial.cs",
   "PreviewInSolutionExplorer": false
