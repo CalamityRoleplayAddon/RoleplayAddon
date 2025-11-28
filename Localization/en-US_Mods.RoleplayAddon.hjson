@@ -1,9 +1,11 @@
 Items: {
 	EyeOfCamarune: {
 		DisplayName: Eye Of Camarune
-		Tooltip: ```
-		Increases Magic damage by 65%
-		However, you Mana is set to half its maximum, and you cannot use Mana potions
-		```
+		Tooltip:
+			'''
+			Increases Magic damage by 65%
+			However, you Mana is set to half its maximum, and you cannot use Mana potions
+			'Look a little closer!'
+			'''
 	}
 }

@@ -5,6 +5,7 @@ using RoleplayAddon.Content;
 using System.Collections.Generic;
 using CalamityMod.Items.Potions;
 using CalamityMod.Items.Potions.Alcohol;
+using CalamityMod.Items;
 
 
 namespace RoleplayAddon.Content
@@ -15,6 +16,8 @@ namespace RoleplayAddon.Content
         public override void SetDefaults()
         {
             Item.accessory = true;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
