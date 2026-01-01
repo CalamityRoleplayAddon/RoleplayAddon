@@ -20,7 +20,7 @@ namespace RoleplayAddon.Core.Globals
 
 		public int IceStacks = 0;
 
-		public const int IceStacksCap = 5;
+		public const int IceStacksCap = 30;
 		private const int IceShatterDamage = 1000;
 		private const float IceShatterRange = 128f;
 
@@ -28,7 +28,7 @@ namespace RoleplayAddon.Core.Globals
 		{
 			RPGlobalNPC modNPC = npc.RPify();
 
-			if (RPUtils.IsHoming(projectile) && modNPC.IceStacks > 0 && projectile.DamageType != DamageClass.Summon)
+			if (projectile.type == ModContent.ProjectileType<WhispersStarProj>() || modNPC.IceStacks == 30)
 			{
 				ShatterIceStacks(projectile, npc);
 			}
