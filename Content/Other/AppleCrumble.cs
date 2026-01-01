@@ -3,10 +3,8 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityMod.NPCs.NormalNPCs;
-using CalamityMod;
 
-namespace RoleplayAddon.Content
+namespace RoleplayAddon.Content.Other
 {
     public class AppleCrumble : ModItem
     {
@@ -47,25 +45,6 @@ namespace RoleplayAddon.Content
             Item.DefaultToFood(22, 22, BuffID.WellFed3, 162000);
             Item.value = Item.buyPrice(0, 3);
             Item.rare = ItemRarityID.Purple;
-        }
-    }
-
-    public class AppleCrumbleDrop : GlobalNPC
-    {
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            // 4 different Phantom Spirit enemies exist
-            if (npc.type == ModContent.NPCType<PhantomSpirit>() || npc.type == ModContent.NPCType<PhantomSpiritS>() || npc.type == ModContent.NPCType<PhantomSpiritL>())
-            {
-                // NPC Loot is done in fractions (Putting a 1 makes it 1/1, AKA 100%, while 20 makes it 1/20, making it 5%)
-                npcLoot.Add(ModContent.ItemType<AppleCrumble>(), 20);
-            }
-
-            // Higher chance for PhantomSpiritM because it is the "Angry" Phantom Spirit, connecting Apple Crumble to Sarenio more
-            if (npc.type == ModContent.NPCType<PhantomSpiritM>())
-            { 
-                npcLoot.Add(ModContent.ItemType<AppleCrumble>(), 10); // 10%
-            }
         }
     }
 }
