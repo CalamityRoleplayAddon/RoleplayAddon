@@ -25,10 +25,11 @@ namespace RoleplayAddon.Content.Weapons.Rogue
 			Item.shootSpeed = 10f;
 			Item.autoReuse = true;
 
-			Item.DamageType = RoleplayAddon.Rogue; // should be rogue!! but cant get it to work so using this for testing AI
+			Item.DamageType = RoleplayAddon.Rogue;
 			Item.shoot = ModContent.ProjectileType<WhispersJavelinProj>();
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.noUseGraphic = true;
+			Item.noMelee = true;
 			Item.UseSound = SoundID.Item1;
 
 			Item.rare = ModContent.RarityType<Turquoise>();

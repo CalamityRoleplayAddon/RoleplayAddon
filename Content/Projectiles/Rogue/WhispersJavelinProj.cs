@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RoleplayAddon.Core.Globals;
 using RoleplayAddon.Core.ModPlayers;
 using RoleplayAddon.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -71,28 +72,46 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 		{
 			Player player = Main.player[Projectile.owner];
 			RPPlayer modPlayer = player.RPify();
+			// Because these identifiers are shorter to type and read:
+			ref List<NPC> targetList = ref modPlayer.WhispersTargetList;
+			ref List<int> ageList = ref modPlayer.WhispersTargetAgeList;
 
 			// Stored for stars to access for homing
-			modPlayer.WhispersTarget = target;
-			modPlayer.WhispersTargetAge = 0;
+			// Both lists are null by default, so they need to be made into empty lists if they are currently null before being appended to
+			if (targetList == null)
+			{
+				targetList = [];
+				targetList.Add(target);
+				ageList = [];
+				ageList.Add(0);
+			}
+			else if (targetList.Contains(target))
+			{
+				int index = targetList.IndexOf(target);
+				ageList[index] = 0;
+			}
+			else
+			{
+				targetList.Add(target);
+				ageList.Add(0);
+			}
 
 			// ice thingymajigy. maybe make it like. only work on first hit? just have a field increment on hit and if it aint zero, dont work buddy. easily adjustable for other values too!
 			RPGlobalNPC modNPC = target.RPify();
+			if (Projectile.Calamity().stealthStrike)
 			{
-				if (Projectile.Calamity().stealthStrike)
-				{
-					modNPC.IceStacks += 3;
-				}
-				else
-				{
-					modNPC.IceStacks++;
-				}
-
-				if (modNPC.IceStacks > RPGlobalNPC.IceStacksCap)
-				{
-					modNPC.IceStacks = RPGlobalNPC.IceStacksCap;
-				}
+				modNPC.IceStacks += 3;
 			}
+			else
+			{
+				modNPC.IceStacks++;
+			}
+
+			if (modNPC.IceStacks > RPGlobalNPC.IceStacksCap)
+			{
+				modNPC.IceStacks = RPGlobalNPC.IceStacksCap;
+			}
+			
 
 			Main.NewText($"New ice stacks count: {modNPC.IceStacks}");
 

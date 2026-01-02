@@ -138,23 +138,23 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 						distance = (scale * Offset) + EndDistance;
 					}
 
-					// i wanna use this for making them slowly orbit while waiting for a target. unfortunately, vector maths hard :c
 					rotation += Math.PI / 180;
 					double baseAngle = direction.ToRotation();
 					Vector2 positionInOrbit = RPUtils.MoveAlongCircle(baseAngle + rotation, distance, owner, Projectile);
-					Projectile.Center = positionInOrbit + new Vector2(8, 8);        // for some reason it won't be centred properly,,,,,, idk why, i wrote MoveAlongCircle like months go and left no comments !! cuz im so smart and thoughtful
+					Projectile.Center = positionInOrbit + new Vector2(8, 8);        // for some reason it won't be centred properly,,,,,, idk why, i wrote MoveAlongCircle like months go and left no comments !! cuz im just so smart and thoughtful
 
 					Projectile.rotation += 0.001f * MathHelper.Clamp(time, 0, 100);
 				}
 
-				if (target != modPlayer.WhispersTarget)
+				// If the star's target isn't the foremost NPC in the target list, set it to that NPC
+				// If lists for some reason don't automatically push items to the earliest index possible whenever they update, this will not work : ) (i somehow have not learned if they do this yet)
+				if (modPlayer.WhispersTargetList != null && target != modPlayer.WhispersTargetList[0])
 				{
-					target = modPlayer.WhispersTarget;
-				}
-
-				if (target != null)
-				{
-					targetLastKnownRect = target.Hitbox;
+					target = modPlayer.WhispersTargetList[0];
+					if (target == null)
+					{
+						targetLastKnownRect = target.Hitbox;
+					}
 				}
 
 				if (time > 100 && timer < 470 && !shouldDie)
