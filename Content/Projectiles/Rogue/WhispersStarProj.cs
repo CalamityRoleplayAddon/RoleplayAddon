@@ -27,7 +27,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 		private Vector2 direction = Vector2.Zero;
 		private double rotation = 0;
 		private float distance;
-		//private float deathSpeed = 0;
+		private float deathSpeed = 0;
 
 		private NPC target = null;
 		private bool shouldHome = false;
@@ -39,7 +39,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 		// Used to move out from the player 
 		private const float EndDistance = 96f;
 		private const float Offset = 32;
-		//private const float SpeedIncrement = 0.1f;
+		private const float SpeedIncrement = 0.1f;
 
 		private const float HomingSpeed = 25f;
 
@@ -142,22 +142,19 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 					double baseAngle = direction.ToRotation();
 					Vector2 positionInOrbit = RPUtils.MoveAlongCircle(baseAngle + rotation, distance, owner, Projectile);
 					Projectile.Center = positionInOrbit + new Vector2(8, 8);        // for some reason it won't be centred properly,,,,,, idk why, i wrote MoveAlongCircle like months go and left no comments !! cuz im just so smart and thoughtful
-
+					Main.NewText($"Star id: {Projectile.ai[0]}, centre coordinates: {Projectile.Center}", 100, 100, 255);	// trying to figure out if the stars (when they just disappear without a death anim) are actually gone or are just. somewhere...
 					Projectile.rotation += 0.001f * MathHelper.Clamp(time, 0, 100);
 				}
 
 				// If the star's target isn't the foremost NPC in the target list, set it to that NPC
-				// If lists for some reason don't automatically push items to the earliest index possible whenever they update, this will not work : ) (i somehow have not learned if they do this yet)
+				// If lists for some reason don't automatically push items to the earliest index possible whenever they update, this will not work : )
 				if (modPlayer.WhispersTargetList != null && target != modPlayer.WhispersTargetList[0])
 				{
 					target = modPlayer.WhispersTargetList[0];
-					if (target == null)
-					{
-						targetLastKnownRect = target.Hitbox;
-					}
+					targetLastKnownRect = target.Hitbox;
 				}
 
-				if (time > 100 && timer < 470 && !shouldDie)
+				if (time > 100 && time < 470 && !shouldDie)
 				{
 					if (target != null)
 					{
@@ -177,7 +174,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 						shouldHome = true;
 					}
 				}
-				else if (timer >= 470 && target == null && !shouldDie)
+				else if (time >= 470 && target == null && !shouldDie)
 				{
 					shouldDie = true;
 				}
@@ -185,6 +182,11 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 				if (shouldHome)
 				{
 					Homing();
+				}
+
+				if (shouldDie)
+				{
+					Death();
 				}
 
 				VisualEffects();
@@ -206,14 +208,13 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 			}
 		}
 
-		/*	// not currently used
-			private void Death()
-			{
-				Main.NewText("Dying so hard rn!!");
-				deathSpeed += SpeedIncrement;
-				Projectile.velocity += deathSpeed * direction;
-				Projectile.rotation += 0.001f * MathHelper.Clamp(time, 0, 200);
-			}*/
+		private void Death()
+		{
+			Main.NewText("Dying so hard rn!!");
+			deathSpeed += SpeedIncrement;
+			Projectile.velocity += deathSpeed * direction;
+			Projectile.rotation += 0.001f * MathHelper.Clamp(time, 0, 200);
+		}
 
 		private void VisualEffects()
 		{
