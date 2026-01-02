@@ -13,7 +13,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 {
 	public class WhispersJavelinProj : ModProjectile
 	{
-		public override string Texture => "RoleplayAddon/Content/Projectiles/Rogue/WhispersJavelin";
+		public override string Texture => "RoleplayAddon/Content/Weapons/Rogue/WhispersJavelin";
 
 		public override void SetDefaults()
 		{

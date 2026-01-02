@@ -20,7 +20,7 @@ namespace RoleplayAddon.Core.ModPlayers
 
 		public override void PostUpdate()
 		{
-			if (!WhispersTarget.active)
+			if (WhispersTarget != null && !WhispersTarget.active)
 			{
 				WhispersTarget = null;
 				WhispersTargetAge = 0;
