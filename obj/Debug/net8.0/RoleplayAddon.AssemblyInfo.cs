@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RoleplayAddon")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+705a644702dd73bfadcbac7f54c7f3515587502e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca63a4e9e5a32084431667f36289b356094e7567")]
 [assembly: System.Reflection.AssemblyProductAttribute("RoleplayAddon")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RoleplayAddon")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
