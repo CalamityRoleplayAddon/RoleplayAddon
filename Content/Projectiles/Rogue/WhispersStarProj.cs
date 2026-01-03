@@ -41,7 +41,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 		// Used to move out from the player 
 		private const float EndDistance = 96f;
 		private const float Offset = 32;
-		private const float SpeedIncrement = 0.1f;
+		private const float SpeedIncrement = 0.08f;
 
 		private const float HomingSpeed = 25f;
 
@@ -206,7 +206,6 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 
 		private void Death()
 		{
-			Main.NewText("Dying so hard rn!!");
 			deathSpeed += SpeedIncrement;
 			Projectile.velocity += deathSpeed * direction;
 			Projectile.rotation += 0.001f * MathHelper.Clamp(time, 0, 200);

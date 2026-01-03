@@ -50,7 +50,7 @@ namespace RoleplayAddon.Content.Weapons.Rogue
 				// Direction of travel is determined in WhisperStarProj.cs via a switch expression that uses Projectile.ai[0]
 				for (int i = 0; i < 8; i++)
 				{
-					int proj = Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<StarTestDummy>(), damage, knockback, player.whoAmI, i);
+					int proj = Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<WhispersStarProj>(), damage, knockback, player.whoAmI, i);
 					if (proj.WithinBounds(Main.maxProjectiles))
 					{
 						Main.projectile[proj].Calamity().stealthStrike = true;
