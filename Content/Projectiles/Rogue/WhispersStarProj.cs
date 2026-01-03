@@ -163,6 +163,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 					{
 						shouldHome = true;
 						Projectile.timeLeft += 100;
+						DustBoost(3);
 					}
 
 					if (time >= 440 && !shouldHome)

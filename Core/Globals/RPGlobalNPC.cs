@@ -82,7 +82,7 @@ namespace RoleplayAddon.Core.Globals
 		/// </summary>
 		/// <param name="stackCount">Number of ice stacks attached to the NPC</param>
 		/// <returns>Multiplier to scale ice drawing and shatter damage</returns>
-		private static float IceStackScaling(int stackCount) => 1 + (float)Math.Log(stackCount);
+		private static float IceStackScaling(int stackCount) => 1 + (float)Math.Log(stackCount);	// maybe multiply the found exponent by like 1.5 to make multiple stacks a little more significanat? idk that's a balancing thing
 
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{

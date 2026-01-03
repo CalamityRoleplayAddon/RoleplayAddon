@@ -21,7 +21,7 @@ namespace RoleplayAddon.Content.Weapons.Rogue
 
 			Item.damage = 100;
 			Item.knockBack = 3f;
-			Item.useTime = Item.useAnimation = 30;
+			Item.useTime = Item.useAnimation = 20;
 			Item.shootSpeed = 10f;
 			Item.autoReuse = true;
 
