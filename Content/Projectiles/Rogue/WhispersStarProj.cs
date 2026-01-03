@@ -6,6 +6,8 @@ using ReLogic.Content;
 using RoleplayAddon.Core.ModPlayers;
 using RoleplayAddon.Utilities;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -32,7 +34,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 		private NPC target = null;
 		private bool shouldHome = false;
 		private bool shouldDie = false;
-		private Rectangle targetLastKnownRect;
+		private bool hasStartedMiscHoming = false;
 
 		private const int SpawnDelay = 5;
 
@@ -56,7 +58,7 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.DamageType = RoleplayAddon.Rogue;
-			Projectile.timeLeft = 500;
+			Projectile.timeLeft = 480;
 		}
 
 		public override void AI()
@@ -142,69 +144,63 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 					double baseAngle = direction.ToRotation();
 					Vector2 positionInOrbit = RPUtils.MoveAlongCircle(baseAngle + rotation, distance, owner, Projectile);
 					Projectile.Center = positionInOrbit + new Vector2(8, 8);        // for some reason it won't be centred properly,,,,,, idk why, i wrote MoveAlongCircle like months go and left no comments !! cuz im just so smart and thoughtful
-					Main.NewText($"Star id: {Projectile.ai[0]}, centre coordinates: {Projectile.Center}", 100, 100, 255);	// trying to figure out if the stars (when they just disappear without a death anim) are actually gone or are just. somewhere...
 					Projectile.rotation += 0.001f * MathHelper.Clamp(time, 0, 100);
 				}
 
-				// If the star's target isn't the foremost NPC in the target list, set it to that NPC
-				// If lists for some reason don't automatically push items to the earliest index possible whenever they update, this will not work : )
-				if (modPlayer.WhispersTargetList != null && target != modPlayer.WhispersTargetList[0])
+				if (time > 100)
 				{
-					target = modPlayer.WhispersTargetList[0];
-					targetLastKnownRect = target.Hitbox;
-				}
-
-				if (time > 100 && time < 470 && !shouldDie)
-				{
-					if (target != null)
+					if (modPlayer.WhispersTargetDict.Count > 0)
 					{
-						// To give it a bit of visual and auditory oopmh
-						if (!shouldHome)
-						{
-							DustBoost(5f);
-							if (Projectile.ai[0] == 0)
-							{
-								SoundEngine.PlaySound(SoundID.Item4);
-							}
-						}
-
-						// So stars that start homing at the last second actually reach their target
-						Projectile.timeLeft += 100;
-
-						shouldHome = true;
+						KeyValuePair<NPC, int> item = modPlayer.WhispersTargetDict.ElementAt(0);
+						target = item.Key;
 					}
-				}
-				else if (time >= 470 && target == null && !shouldDie)
-				{
-					shouldDie = true;
-				}
+					else
+					{
+						target = null;
+					}
 
-				if (shouldHome)
-				{
-					Homing();
-				}
+					if (!shouldHome && !shouldDie && target != null)
+					{
+						shouldHome = true;
+						Projectile.timeLeft += 100;
+					}
 
-				if (shouldDie)
-				{
-					Death();
+					if (time >= 440 && !shouldHome)
+					{
+						shouldDie = true;
+					}
+
+					// These ifs are acting out the decision made above
+					if (shouldDie)
+					{
+						Death();
+					}
+					else if (shouldHome)
+					{
+						Home();
+					}
 				}
 
 				VisualEffects();
 			}
 		}
 
-		private void Homing()
+		private void Home()
 		{
-			targetLastKnownRect = target.Hitbox;
-			Vector2 targetPos = target.Center;
-			Vector2 homingDirection = Projectile.SafeDirectionTo(targetPos, Vector2.One);
-
-			Projectile.velocity = HomingSpeed * homingDirection;
-			Projectile.rotation += 0.001f * MathHelper.Clamp(time, 0, 100);
-
-			if (Projectile.Hitbox.Intersects(targetLastKnownRect))
+			if (target == null || hasStartedMiscHoming)
 			{
-				Projectile.Kill();
+				// Start chasing any nearby enemy if all targets die or run out of time while the star is homing
+				// Cannot start homing a marked enemy again if one becomes available
+				CalamityUtils.HomeInOnNPC(Projectile, true, 80 * 16, HomingSpeed, 10);
+				hasStartedMiscHoming = true;
+			}
+			else
+			{
+				Vector2 targetPos = target.Center;
+				Vector2 homingDirection = Projectile.SafeDirectionTo(targetPos, Vector2.One);
+
+				Projectile.velocity = HomingSpeed * homingDirection;
+				Projectile.rotation += 0.1f;
 			}
 		}
 

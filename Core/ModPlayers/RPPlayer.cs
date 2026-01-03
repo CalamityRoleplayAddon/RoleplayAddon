@@ -9,54 +9,42 @@ namespace RoleplayAddon.Core.ModPlayers
 	// All ModPlayer files are partials of the RPPlayer class
 	public partial class RPPlayer : ModPlayer
 	{
-		// broke the whole weapon doing this,,, try just keeping each list's base state as empty instead of null?
-		public List<NPC> WhispersTargetList = null;
-		public List<int> WhispersTargetAgeList = null;
+		// Dictionary that will store javelin-struck enemies and how long it has been since they were struck
+		public Dictionary<NPC, int> WhispersTargetDict = [];
 
-		private const int whispersTargetLifespan = 180;
+		private const int WhispersTargetLifespan = 180;
 
 		public override void PreUpdate()
 		{
-			// Look through each NPC in the target list and increment the corresponding age counter in the age list if the NPC is active
-			// Inactive NPCs and counters past the lifespan will be removed in PostUpdate()
-			foreach (NPC n in WhispersTargetList)
+			// Look through each marked NPC and increment the corresponding timer if the NPC is active
+			// Inactive or timed out NPC-timer pairs will be removed in PostUpdate()
+			foreach (KeyValuePair<NPC, int> item in WhispersTargetDict)
 			{
-				if (n.active)
+				if (item.Key.active)
 				{
-					int index = WhispersTargetList.IndexOf(n);
-					WhispersTargetAgeList[index]++;
+					WhispersTargetDict[item.Key]++;
 				}
 			}
 		}
 
 		public override void PostUpdate()
 		{
-			// No point in doing these checks if we already know the list is empty (and therefore null due to the below code)
-			if (WhispersTargetList != null)
+
+			if (WhispersTargetDict.Count > 0)
 			{
 				// Look at each NPC and remove it and its counter if:
-				foreach (NPC n in WhispersTargetList)
+				foreach (KeyValuePair<NPC, int> item in WhispersTargetDict)
 				{
-					int index = WhispersTargetList.IndexOf(n);
 					// A) The NPC is inactive
-					if (!n.active)
+					if (!item.Key.active)
 					{
-						WhispersTargetList.Remove(n);
-						WhispersTargetAgeList.RemoveAt(index);
+						WhispersTargetDict.Remove(item.Key);
 					}
 					// B) The NPC has reached the end of its lifespan as a target
-					if (WhispersTargetAgeList[index] > whispersTargetLifespan)
+					if (item.Value > WhispersTargetLifespan)
 					{
-						WhispersTargetList.Remove(n);
-						WhispersTargetAgeList.RemoveAt(index);
+						WhispersTargetDict.Remove(item.Key);
 					}
-				}
-				// If there are no NPCs left in the target list (due to them all having become inactive or died of old age) set both lists to null
-				// This prevents future checks in PostUpdate() until the list is no longer null
-				if (WhispersTargetList.Count == 0)
-				{
-					WhispersTargetList = null;
-					WhispersTargetAgeList = null;
 				}
 			}
 		}
