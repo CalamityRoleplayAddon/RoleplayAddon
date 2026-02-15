@@ -1,5 +1,6 @@
 using CalamityMod.Items.Potions;
 using CalamityMod.Items.Potions.Alcohol;
+using CalamityMod.Items.Potions.Food;
 using RoleplayAddon.Core.ModPlayers;
 using System.Collections.Generic;
 using Terraria;
