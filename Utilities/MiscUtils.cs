@@ -11,7 +11,7 @@ namespace RoleplayAddon.Utilities
 		/// </summary>
 		/// <param name="projectile">The projectile to be checked</param>
 		/// <returns>True if the projectile is homing, false otherwise</returns>
-		public static bool IsHoming(Projectile projectile)
+		public static bool IsHoming(this Projectile projectile)
 		{
 			if (ProjectileID.Sets.CultistIsResistantTo[projectile.type])
 			{

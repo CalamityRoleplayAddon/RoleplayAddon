@@ -39,9 +39,9 @@ namespace RoleplayAddon.Utilities
 		#endregion
 
 		/// <summary>
-		/// Moves an entity around another entity according to the passed angle (radians) and radius (world coordinates)
+		/// For use in moving an entity to a position around another entity according to the passed angle (radians) and radius (world coordinates)
 		/// </summary>
-		/// <param name="angle">The angle in radians the orbiting entity will be moved according to. This should be incremented every tick.</param>
+		/// <param name="angle">The angle in radians the orbiting entity will be moved according to. This should be incremented every tick to move along an arc.</param>
 		/// <param name="radius">How far out the orbiting entity is in world coordinates</param>
 		/// <param name="pivot">The entity being orbited</param>
 		/// <param name="target">The entity in orbit</param>

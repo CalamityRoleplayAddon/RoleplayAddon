@@ -4,6 +4,7 @@ using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using RoleplayAddon.Content.Projectiles.Rogue;
+using RoleplayAddon.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -21,8 +22,8 @@ namespace RoleplayAddon.Content.Weapons.Rogue
 
 			Item.damage = 100;
 			Item.knockBack = 3f;
-			Item.useTime = Item.useAnimation = 20;
-			Item.shootSpeed = 10f;
+			Item.useTime = Item.useAnimation = 30;
+			Item.shootSpeed = 15f;
 			Item.autoReuse = true;
 
 			Item.DamageType = RoleplayAddon.Rogue;
@@ -48,12 +49,15 @@ namespace RoleplayAddon.Content.Weapons.Rogue
 
 				// Produces 8 stars set to travel radially
 				// Direction of travel is determined in WhisperStarProj.cs via a switch expression that uses Projectile.ai[0]
-				for (int i = 0; i < 8; i++)
+				if (!player.RPify().reduceEffects)
 				{
-					int proj = Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<WhispersStarProj>(), damage, knockback, player.whoAmI, i);
-					if (proj.WithinBounds(Main.maxProjectiles))
+					for (int i = 0; i < 8; i++)
 					{
-						Main.projectile[proj].Calamity().stealthStrike = true;
+						int proj = Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<WhispersStarProj>(), damage, knockback, player.whoAmI, i, javelin);
+						if (proj.WithinBounds(Main.maxProjectiles))
+						{
+							Main.projectile[proj].Calamity().stealthStrike = true;
+						}
 					}
 				}
 				return false;

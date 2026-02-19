@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,8 +10,8 @@ namespace RoleplayAddon.Core.ModPlayers
 	{
 		// Dictionary that will store javelin-struck enemies and how long it has been since they were struck
 		public Dictionary<NPC, int> WhispersTargetDict = [];
-
-		private const int WhispersTargetLifespan = 180;
+		public bool reduceEffects = true;		// for showcasing different things more easily. should remove later
+		private const int WhispersTargetLifespan = 240;
 
 		public override void PreUpdate()
 		{

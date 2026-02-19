@@ -6,9 +6,7 @@ using RoleplayAddon.Content.Other;
 using RoleplayAddon.Content.Projectiles.Rogue;
 using RoleplayAddon.Utilities;
 using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,51 +16,22 @@ namespace RoleplayAddon.Core.Globals
 	{
 		public override bool InstancePerEntity => true;     // Otherwise can't do this for individual enemies, which is necessary
 
-		public int IceStacks = 0;
-
+		// Whispers of Snowfall		
+		public const int IceShatterDamage = 1000;
+		public const float IceShatterRange = 256f;
 		public const int IceStacksCap = 30;
-		private const int IceShatterDamage = 1000;
-		private const float IceShatterRange = 128f;
+		public int IceStacks = 0;
 
 		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
 			RPGlobalNPC modNPC = npc.RPify();
 
-			if (projectile.type == ModContent.ProjectileType<WhispersStarProj>() || modNPC.IceStacks == 30)
+			if (projectile.type == ModContent.ProjectileType<WhispersStarProj>() && modNPC.IceStacks > 0 || modNPC.IceStacks == 30)
 			{
-				ShatterIceStacks(projectile, npc);
+				SingleInstanceGlobalNPC.ShatterIceStacks(npc, projectile);
 			}
 		}
 
-		private static void ShatterIceStacks(Projectile projectile, NPC npc)
-		{
-			// Find all frozen NPCs within the range of this one
-			List<NPC> nearbyFrozen = [];
-			foreach (NPC n in Main.npc)
-			{
-				if (n.Distance(npc.Center) < IceShatterRange && n.RPify().IceStacks > 0 && n.active)
-				{
-					nearbyFrozen.Add(n);
-				}
-			}
-			if (npc.RPify().IceStacks > 0)
-			{
-				nearbyFrozen.Add(npc);
-			}
-
-			foreach (NPC n in nearbyFrozen)
-			{
-				// goose note: wanna make it happen in sequential frames rather than all at aonce,,, set things to happen on a timer? and give a bigger delay to each next npc in the list?
-
-				int damage = (int)(IceShatterDamage * IceStackScaling(n.RPify().IceStacks));
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), n.Center, Vector2.Zero, ModContent.ProjectileType<WhispersIceShatterProj>(), damage, 0f, projectile.owner);
-
-				SoundEngine.PlaySound(SoundID.Shatter);
-
-				n.RPify().IceStacks = 0;
-				ShatterIceStacks(projectile, n);
-			}
-		}
 
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
@@ -82,7 +51,7 @@ namespace RoleplayAddon.Core.Globals
 		/// </summary>
 		/// <param name="stackCount">Number of ice stacks attached to the NPC</param>
 		/// <returns>Multiplier to scale ice drawing and shatter damage</returns>
-		private static float IceStackScaling(int stackCount) => 1 + (float)Math.Log(stackCount);	// maybe multiply the found exponent by like 1.5 to make multiple stacks a little more significanat? idk that's a balancing thing
+		public static float IceStackScaling(int stackCount) => (1 + (float)Math.Log(stackCount)) * 1.2f;
 
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{

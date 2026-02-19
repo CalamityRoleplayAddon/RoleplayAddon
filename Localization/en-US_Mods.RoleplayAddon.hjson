@@ -19,16 +19,31 @@ Items: {
 				DisplayName: Whispers Of Snowfall
 				Tooltip:
 					'''
-					[c/f1c0ff:Launches a high-velocity, infinitely piercing javelin that adds ice on enemy hits, stacking up to 30 times]
+					[c/f1c0ff:Launches a high-velocity javelin trailed by snowfall that adds ice on enemy hits, stacking up to 30 times]
 					[c/fbfbfb:When the ice shatters, massive damage is dealt. Shatter damage increases diminishingly with ice stacks]
-					[c/fbfbfb:Ice shattering can prompt nearby ice to shatter as well, initiating a chain reaction]
+					[c/fbfbfb:Ice shattering on one enemy starts a chain reaction, causing a bolt of magic to race between nearby iced targets and shatter their ice]
 					[c/fbfbfb:A shatter happens automatically when the 30th stack is applied]
 					[c/9cffee:Stealth strikes produce 8 orbiting stars that explode on contact with enemies]
-					[c/9cffee:If a javelin has hit an enemy within the last 3 seconds, the stars can home in on that enemy, shattering any ice on the target regardless of the stack count]
+					[c/9cffee:If a javelin has hit an enemy within the last 4 seconds, the stars can home in on that enemy, shattering any ice on the target regardless of the stack count]
 					[c/9cffee:Stars will chase the closest enemy if they can no longer find javelin-marked enemies while homing, and will die after 8 seconds have passed if they never start homing]
 					'''
 			}
+
+			WoS: {
+				DisplayName: Wo S
+				Tooltip: ""
+			}
 		}
+	}
+
+	Icefill: {
+		DisplayName: Icefill
+		Tooltip: ""
+	}
+
+	Woseffects: {
+		DisplayName: Woseffects
+		Tooltip: ""
 	}
 }
 
@@ -37,4 +52,6 @@ Projectiles: {
 	WhispersJavelinProj.DisplayName: Whispers Javelin Proj
 	WhispersStarProj.DisplayName: Whispers Star Proj
 	StarTestDummy.DisplayName: Star Test Dummy
+	WoSJavelin.DisplayName: Wo S Javelin
+	WoSStar.DisplayName: Wo S Star
 }
