@@ -57,13 +57,25 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 				GeneralParticleHandler.SpawnParticle(lightTrail);
 				if (time % 4 == 0)
 				{
-					SparkParticle sparkTrail = new(Projectile.Center + Main.rand.NextVector2Circular(8, 8), Projectile.velocity * Main.rand.NextFloat(0.9f, 1.1f), false, 24, 0.5f, Color.Lerp(Color.Violet, Color.LightSkyBlue, Main.rand.NextFloat()));
+					SparkParticle sparkTrail = new(
+						Projectile.Center + Main.rand.NextVector2Circular(8, 8), 
+						Projectile.velocity * Main.rand.NextFloat(0.9f, 1.1f), 
+						false, 
+						24, 
+						0.5f, 
+						Color.Lerp(Color.Violet, Color.LightSkyBlue, Main.rand.NextFloat()));
 			    	GeneralParticleHandler.SpawnParticle(sparkTrail);
 				}
 			}
 			else
 			{
-				SparkParticle sparkTrail = new(Projectile.Center + Main.rand.NextVector2Circular(8, 8), Projectile.velocity * Main.rand.NextFloat(0.9f, 1.1f), false, 24, 0.5f, Color.Lerp(Color.Violet, Color.LightSkyBlue, Main.rand.NextFloat()));
+				SparkParticle sparkTrail = new(
+					Projectile.Center + Main.rand.NextVector2Circular(8, 8), 
+					Projectile.velocity * Main.rand.NextFloat(0.9f, 1.1f), 
+					false, 
+					24, 
+					0.5f, 
+					Color.Lerp(Color.Violet, Color.LightSkyBlue, Main.rand.NextFloat()));
 				GeneralParticleHandler.SpawnParticle(sparkTrail);
 			}
 

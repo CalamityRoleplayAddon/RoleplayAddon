@@ -22,8 +22,6 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			ShatterEffect((int)Projectile.ai[0]);
-			/* Particle shatter = new PlasmaExplosion(target.Center, Vector2.Zero, Color.DeepSkyBlue, Vector2.One, Main.rand.NextFloat(-5, 5), 0.01f, 0.05f, 24);
-			GeneralParticleHandler.SpawnParticle(shatter); */
 		}
 
 		public  void ShatterEffect(int incidentNPC = 0)

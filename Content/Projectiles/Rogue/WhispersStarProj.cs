@@ -82,6 +82,11 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
 
         public override void AI()
         {
+            if (Main.player[Projectile.owner].dead)
+            {
+                Projectile.Kill();
+            }
+
             // Initialisation
             if (direction == Vector2.Zero)
             {
@@ -236,7 +241,16 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
                     for (int i = 1; i < 3; i++)
                     {
                         Color colour = Color.Lerp(Color.AliceBlue, Color.BlueViolet, Main.rand.NextFloat(0.4f, 0.6f));
-                        CustomPulse boostPulse = new(Projectile.Center, vel * i, colour, "CalamityMod/Particles/BloomRingThinLarge", new Vector2(0.3f, 1f), pulseRotation, 0.05f * i, 0.025f * i, 24);
+                        CustomPulse boostPulse = new(
+                            Projectile.Center, 
+                            vel * i, 
+                            colour, 
+                            "CalamityMod/Particles/BloomRingThinLarge", 
+                            new Vector2(0.3f, 1f), 
+                            pulseRotation, 
+                            0.05f * i, 
+                            0.025f * i, 
+                            24);
                         GeneralParticleHandler.SpawnParticle(boostPulse);
                     }
                     for (int i = 0; i < 5; i++)
@@ -254,9 +268,29 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
         private void Wander()
         {
             GlobalProcesses();
+            // If we don't check for this, the stars will fly directly away from the top-left corner of the world if switching from Chasing
+            if (wanderPlayerPos == Vector2.Zero)
+            {
+                CalamityUtils.HomeInOnNPC(Projectile, true, 30 * 16, HomingSpeed, 30);
+                // And if we don't check for THIS there's a small chance of a star staying still due to finding and losing a target before it can gain velocity
+                if (Projectile.position == Projectile.oldPosition)
+                {
+                    Vector2 direction = player.Center.AngleTo(Projectile.Center).ToRotationVector2();
+                    Projectile.velocity = 1 * direction;
+                }
+                // Finally, this is just to make sure that, by arbitrarily giving a star speed in the last step, we won't accidentally make it overtake a star 
+                // that started gaining velocity through Chasing before it did
+                if (Projectile.velocity.Length() < 2f)
+                {
+                    Projectile.velocity = 2f * Projectile.velocity.SafeNormalize(Vector2.One);
+                }
+            }
+            else
+            {
             Vector2 direction = wanderPlayerPos.AngleTo(Projectile.Center).ToRotationVector2();
             wanderSpeed += HomingSpeed * 0.05f;
             Projectile.velocity = direction * wanderSpeed;
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -274,8 +308,15 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
         public override void OnKill(int timeLeft)
 		{
 			Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.AliceBlue, Vector2.One, 0, 0.1f, 0.50f, 30);
-			Particle explosion = new CustomPulse(Projectile.Center, Vector2.Zero, Color.LightSkyBlue, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(),
-				0.1f / 14f, 0.50f / 14f, // FlameExplosion is about 13.13 times larger than HollowCircleHardEdge, so this is needed to make the former just a little smaller
+			Particle explosion = new CustomPulse(
+                Projectile.Center, 
+                Vector2.Zero, 
+                Color.LightSkyBlue, 
+                "CalamityMod/Particles/FlameExplosion", 
+                Vector2.One, 
+                Main.rand.NextFloat(),
+				0.1f / 14f, 
+                0.50f / 14f, // FlameExplosion is about 13.13 times larger than HollowCircleHardEdge, so this is needed to make the former just a little smaller
 				30);
 			GeneralParticleHandler.SpawnParticle(pulse);
 			GeneralParticleHandler.SpawnParticle(explosion);
