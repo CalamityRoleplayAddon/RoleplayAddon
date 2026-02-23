@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RoleplayAddon.Content.Accessories;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,10 +9,11 @@ namespace RoleplayAddon.Core.ModPlayers
 	// All ModPlayer files are partials of the RPPlayer class
 	public partial class RPPlayer : ModPlayer
 	{
-		// Dictionary that will store javelin-struck enemies and how long it has been since they were struck
 		public Dictionary<NPC, int> WhispersTargetDict = [];
 		public bool reduceEffects = true;		// for showcasing different things more easily. should remove later
 		private const int WhispersTargetLifespan = 240;
+
+		public int AshenRingCooldown = AshenRing.Cooldown;
 
 		public override void PreUpdate()
 		{
@@ -23,6 +25,11 @@ namespace RoleplayAddon.Core.ModPlayers
 				{
 					WhispersTargetDict[item.Key]++;
 				}
+			}
+
+			if (AshenRingCooldown > 0)
+			{
+				AshenRingCooldown--;
 			}
 		}
 

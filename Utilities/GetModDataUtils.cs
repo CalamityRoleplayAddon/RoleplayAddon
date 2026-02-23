@@ -15,5 +15,10 @@ namespace RoleplayAddon.Utilities
 		/// Returns the <c>RPGlobalNPC</c> instance attached to the passed NPC.
 		/// </summary>
 		public static RPGlobalNPC RPify(this NPC npc) => npc.GetGlobalNPC<RPGlobalNPC>();
+
+		/// <summary>
+		/// Returns the <c>RPGlobalProjectile</c> instance attached to the passed Projectile.
+		/// </summary>
+		public static RPGlobalProjectile RPify(this Projectile proj) => proj.GetGlobalProjectile<RPGlobalProjectile>();
 	}
 }

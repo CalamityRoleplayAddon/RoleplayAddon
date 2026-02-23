@@ -45,6 +45,39 @@ Items: {
 		DisplayName: Woseffects
 		Tooltip: ""
 	}
+
+	AshenFlower: {
+		DisplayName: Ashen Flower
+		Tooltip:
+			'''
+			On a cooldown, critical hits with ranged weapons spawn a number of petals glowing with profaned energy 
+			These petals heal their owner on contact but have fixed lifespans, slowly burning up under the heat of Her flames
+			If the owner is close enough, the petals will gravitate towards the flower affixed to their person
+			[c/ff8c00:'Its perianth pulses with the light of Her holy flame']
+			'''
+	}
+
+	AshenRing: {
+		DisplayName: Ashen Ring
+		Tooltip:
+			'''
+			On a cooldown, critical hits with ranged weapons will erupt into a flash of holy fire that damages nearby enemies and inflicts Holy Flames
+			This flash will also spawn a number of petals glowing with profaned energy
+			These petals heal their owner on contact but have fixed lifespans, slowly burning up under the lasting heat of Her flames
+			If the owner is close enough, the petals will gravitate towards the ring
+			[c/ff8c00:'Not even Her holy flame could outshine their love']
+			'''
+	}
+
+	IlmeranRing: {
+		DisplayName: Ilmeran Ring
+		Tooltip:
+			'''
+			On a cooldown, critical hits with ranged weapons will release a splash of icy water that damages nearby enemies and inflicts Riptide
+			This burst has a cooldown of 5 seconds and 20 armour penetration
+			[c/00bbff:'something something, flavour tooltip']
+			'''
+	}
 }
 
 Projectiles: {
@@ -54,4 +87,7 @@ Projectiles: {
 	StarTestDummy.DisplayName: Star Test Dummy
 	WoSJavelin.DisplayName: Wo S Javelin
 	WoSStar.DisplayName: Wo S Star
+	AshenPetalProj.DisplayName: Ashen Petal Proj
+	IlmeranRingproj.DisplayName: Ilmeran Ringproj
+	AshenFlowerProj.DisplayName: Ashen Flower Proj
 }

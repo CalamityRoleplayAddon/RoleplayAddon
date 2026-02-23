@@ -1,0 +1,27 @@
+ashen ring (and downgrades) notes
+
+
+make ring/flower glow on player!!
+
+change riptide to an ice debuff..........
+
+
+
+
+Ashen Flower
+Reference to Léa
+
+Post-ML Accessory dropped by Ash Eaters. Critical hits with ranged weapons will cause 1-3 petals to be spawned. Touching these petals heals the player for a small amount of their max HP (5%?)
+
+
+Ashen Ring
+YURI!!!
+
+Post-ML Accessory crafted on the Tinkerer’s Workshop with the Ashen Flower, Illmeran Ring, 5 Profaned Geodes and a Life Crystal. Fuses the effects of both items - Critical hits with ranged weapons cause a burst of profaned flame on the struck enemy, dealing additional AoE damage to it and any nearby enemies (This AoE is stronger than the one inflicted by the Illmeran Ring) - Additionally, it inflicts the Holy Flames debuff.
+The petals work basically the same as before, though maybe with slightly more of them at a time (2 - 4?) and maybe they’re a little bigger, making them easier to catch.
+
+
+Illmeran Ring
+Reference to Molly
+
+Hardmode accessory sold by Amidias. Critical hits with ranged weapons cause a small burst of icy water, dealing additional AoE damage to enemies caught in the radius. 
