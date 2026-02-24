@@ -3,8 +3,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using RoleplayAddon.Content.Accessories;
+using RoleplayAddon.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RoleplayAddon.Content.Projectiles.Healing
@@ -17,8 +20,10 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 
         private bool hasHealedOwner = false;
         private Color baseColour = new(255, 191, 73);
+        private float effectReduction;
         private float radius;
         private int framesSinceFlicker = 0;
+        private Player Player => Main.player[Projectile.owner];
 
 		public override void SetDefaults()
 		{
@@ -39,12 +44,13 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             {
                 Projectile.timeLeft += 50;
             }
+
+            effectReduction = Player.RPify().ashenFlowerReduced ? 0.5f : 1f;
+            baseColour *= effectReduction;
         }
 
         public override void AI()
         {
-            Player player = Main.player[Projectile.owner];
-
             // The glow should occasionally dim or brighten a little, like the flickering of a flame
             // In this case, that means timeLeft should decrease or increase occasionally, but not enough to be infinite
             framesSinceFlicker--;
@@ -72,19 +78,20 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             // there are about 35 pixels of what I'm considering blank space that should not be included in the homing radius (which is why I'm then subtracting by 35),
             // and then multiplying by glowScale makes the homing radius decrease over time just as the glow's brightness does.
             radius = ((ModContent.Request<Texture2D>("CalamityMod/Particles/BloomCircle", AssetRequestMode.ImmediateLoad).Value.Width / 2) - 35) * glowScale;
-            if (player.lifeMagnet)  // Heartreach. i think
+            if (Player.lifeMagnet)  // Heartreach. i think
             {
                 radius *= 1.5f;
             }
-            if (Projectile.Center.Distance(player.Center) < radius)
+            if (Projectile.Center.Distance(Player.Center) < radius)
             {
-                Vector2 direction = Projectile.Center.DirectionTo(player.Center);
+                Vector2 direction = Projectile.Center.DirectionTo(Player.Center);
                 Projectile.velocity = HomingSpeed * direction;
             }
-            if (Projectile.Hitbox.Intersects(player.Hitbox))
+            if (Projectile.Hitbox.Intersects(Player.Hitbox))
             {
-                player.Heal((int)(player.statLifeMax2 * AshenFlower.HealFactor));
+                Player.Heal((int)(Player.statLifeMax2 * AshenFlower.HealFactor));
                 hasHealedOwner = true;
+                SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
                 Projectile.Kill();
             }
 
@@ -94,7 +101,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 velocity = Main.rand.NextVector2Circular(6, 6);
-                    Color colour = Color.Lerp(Color.Gold, Color.Red, Main.rand.NextFloat());
+                    Color colour = Color.Lerp(Color.Gold, Color.Red, Main.rand.NextFloat()) * effectReduction;
                     GlowOrbParticle ember = new(Projectile.Center, velocity, i == 0, 24, 0.2f * (i + 1), colour);
                     GeneralParticleHandler.SpawnParticle(ember);
                 }
@@ -120,7 +127,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             if (hasHealedOwner)
             {
                 float glowScale = (float)timeLeft / 150;
-                Color colour = new(54, 209, 54);     // Same green as Sanctified Spark's healing star
+                Color colour = new Color(54, 209, 54) * effectReduction;
                 DirectionalPulseRing pulse = new(Projectile.Center, Vector2.Zero, colour, Vector2.One, 0, 0, glowScale, 24);
                 GeneralParticleHandler.SpawnParticle(pulse);
             }

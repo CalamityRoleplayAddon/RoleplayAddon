@@ -22,12 +22,20 @@ namespace RoleplayAddon.Content.Accessories
 			Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
 		}
 
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+        {
+            RPPlayer modPlayer = player.RPify();
+			return !(modPlayer.ilmeranRing || modPlayer.ashenFlower);
+        }
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			RPPlayer modPlayer = player.RPify();
 			modPlayer.ashenFlower = true;
+			modPlayer.ashenFlowerReduced = hideVisual;
 			modPlayer.ashenRing = true;
 			modPlayer.ilmeranRing = true;
+			modPlayer.ilmeranRingReduced = hideVisual;
 		}
 
         public override void AddRecipes()

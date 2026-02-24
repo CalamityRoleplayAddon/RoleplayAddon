@@ -1,10 +1,13 @@
 using CalamityMod;
 using CalamityMod.Particles;
+using CalamityMod.Projectiles.Summon;
 using Microsoft.Xna.Framework;
 using RoleplayAddon.Content.Accessories;
 using RoleplayAddon.Content.Projectiles.Healing;
 using RoleplayAddon.Content.Projectiles.Ranged;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RoleplayAddon.Core.ModPlayers
@@ -25,7 +28,9 @@ namespace RoleplayAddon.Core.ModPlayers
                 if (!Player.HasCooldown(Cooldowns.AshenRing.ID) && hit.Crit && (ilmeranRing || ashenFlower))
                 {
                     // A few values are shared between Ilmeran Ring and Ashen Flower, so these are set here to avoid setting them twice for no reason
-                    Color colour = ashenRing ? new Color(255, 191, 73) : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat());
+                    float effectReduction = ilmeranRingReduced ? 0.3f : 1f;
+                    Color colour = ashenRing ? new Color(255, 191, 73) * effectReduction 
+                        : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat()) * effectReduction;
                     Vector2 contactPoint = proj.Center + (target.Center - proj.Center) / 2;
                     
                     // is the globalproj bool necessary now that there's a cooldown. probably not i think.........
@@ -38,6 +43,7 @@ namespace RoleplayAddon.Core.ModPlayers
                         
                         if (ashenRing)
                         {
+                            SoundEngine.PlaySound(SoundID.DD2_BetsysWrathShot with { Volume = effectReduction }, contactPoint);
                             CustomPulse flash = new(
                                 contactPoint, 
                                 Vector2.Zero, 
@@ -52,6 +58,7 @@ namespace RoleplayAddon.Core.ModPlayers
                         }
                         else
                         {
+                            SoundEngine.PlaySound(SoundID.Item21 with { Volume = effectReduction }, contactPoint);
                             DirectionalPulseRing pulse = new(contactPoint, Vector2.Zero, colour, Vector2.One, 0, 0f, scale, 36);
                             GeneralParticleHandler.SpawnParticle(pulse);
                             for (int i = 0; i < 3; i++)

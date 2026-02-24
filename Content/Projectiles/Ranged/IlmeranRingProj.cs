@@ -11,6 +11,9 @@ namespace RoleplayAddon.Content.Projectiles.Ranged
     public class IlmeranRingproj : ModProjectile
     {
         public override string Texture => "CalamityMod/Projectiles/InvisibleProj";
+
+        private Player Player => Main.player[Projectile.owner];
+
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 1;
@@ -21,7 +24,7 @@ namespace RoleplayAddon.Content.Projectiles.Ranged
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.player[Projectile.owner].RPify().ashenRing)
+            if (Player.RPify().ashenRing)
             {
                 target.AddBuff(ModContent.BuffType<HolyFlames>(), 180);
             }
@@ -36,21 +39,26 @@ namespace RoleplayAddon.Content.Projectiles.Ranged
             // Was considering putting this in OnHitNPC but that would cancel the visual effect for the Ashen Ring if the NPC dies from the original projectile
             bool ashen = Projectile.ai[0] == 1;
             Color colour = ashen ? Color.Gold : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat());
+            if (Player.RPify().ilmeranRingReduced)
+            {
+                colour *= 0.5f;
+            }
+
+            CustomPulse pulse = new(
+                Projectile.Center, 
+                Vector2.Zero, 
+                colour, 
+                "CalamityMod/Particles/BloomRing", 
+                Vector2.One, 
+                Main.rand.NextFloat(), 
+                0.1f, 
+                ashen ? 1f : 0.75f, 
+                24, 
+                true);
+            GeneralParticleHandler.SpawnParticle(pulse);
 
             if (ashen)
             {
-                CustomPulse pulse = new(
-                    Projectile.Center, 
-                    Vector2.Zero, 
-                    colour, 
-                    "CalamityMod/Particles/BloomRing", 
-                    Vector2.One, 
-                    Main.rand.NextFloat(), 
-                    0.1f, 
-                    1f, 
-                    24, 
-                    true);
-                GeneralParticleHandler.SpawnParticle(pulse);
                 for (int i = 0; i < 5; i++)
                 {
                     Vector2 velocity = Main.rand.NextVector2CircularEdge(6 + i/2, 6 + i/2);
@@ -60,18 +68,6 @@ namespace RoleplayAddon.Content.Projectiles.Ranged
             }
             else
             {
-                CustomPulse pulse = new(
-                    Projectile.Center, 
-                    Vector2.Zero, 
-                    colour, 
-                    "CalamityMod/Particles/BloomRing", 
-                    Vector2.One, 
-                    Main.rand.NextFloat(), 
-                    0.1f, 
-                    0.75f, 
-                    24, 
-                    true);
-                GeneralParticleHandler.SpawnParticle(pulse);
                 for (int i = 0; i < 5; i++)
                 {
                     Vector2 velocity = Main.rand.NextVector2CircularEdge(6 + i/2, 6 + i/2);
