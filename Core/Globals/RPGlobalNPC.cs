@@ -1,7 +1,9 @@
 using CalamityMod;
 using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.TownNPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RoleplayAddon.Content.Accessories;
 using RoleplayAddon.Content.Other;
 using RoleplayAddon.Content.Projectiles.Rogue;
 using RoleplayAddon.Utilities;
@@ -21,6 +23,16 @@ namespace RoleplayAddon.Core.Globals
 		public const float IceShatterRange = 256f;
 		public const int IceStacksCap = 30;
 		public int IceStacks = 0;
+
+
+
+        public override void ModifyShop(NPCShop shop)
+        {
+            if (shop.NpcType == ModContent.NPCType<SeaKing>())
+			{
+				shop.InsertBefore(ItemID.TruffleWorm, ModContent.ItemType<IlmeranRing>(), Condition.Hardmode);
+			}
+        }
 
 		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
