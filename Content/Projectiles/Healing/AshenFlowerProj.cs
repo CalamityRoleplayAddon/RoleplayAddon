@@ -86,6 +86,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             {
                 Vector2 direction = Projectile.Center.DirectionTo(Player.Center);
                 Projectile.velocity = HomingSpeed * direction;
+                Player.RPify().ashenFlowerGlowing = true;
             }
             if (Projectile.Hitbox.Intersects(Player.Hitbox))
             {

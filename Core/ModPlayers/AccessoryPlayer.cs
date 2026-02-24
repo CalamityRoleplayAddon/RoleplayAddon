@@ -5,6 +5,7 @@ namespace RoleplayAddon.Core.ModPlayers
 	public partial class RPPlayer : ModPlayer
 	{
 		public bool ashenFlower;
+		public bool ashenFlowerGlowing;
 		public bool ashenFlowerReduced;
 		public bool ashenRing;
 		public bool ilmeranRing;
@@ -14,6 +15,7 @@ namespace RoleplayAddon.Core.ModPlayers
 		public override void ResetEffects()
 		{
 			ashenFlower = false;
+			ashenFlowerGlowing = false;
 			ashenFlowerReduced = false;
 			ashenRing = false;
 			ilmeranRing = false;
