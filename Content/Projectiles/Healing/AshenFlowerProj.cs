@@ -89,7 +89,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             }
 
             // This creates ember-like particles, to fit the flame theme
-            if (Projectile.timeLeft % 10 == 0)
+            if (Projectile.timeLeft % 15 == 0)
             {
                 for (int i = 0; i < 2; i++)
                 {
