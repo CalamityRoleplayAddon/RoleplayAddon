@@ -1,9 +1,9 @@
+using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using RoleplayAddon.Content.Accessories;
 using RoleplayAddon.Content.Projectiles.Healing;
 using RoleplayAddon.Content.Projectiles.Ranged;
-using RoleplayAddon.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -22,10 +22,10 @@ namespace RoleplayAddon.Core.ModPlayers
 			if (proj.DamageType == DamageClass.Ranged)
 			{
 				// Ashen Ring effects
-                if (AshenRingCooldown == 0 && hit.Crit && (ilmeranRing || ashenFlower))
+                if (!Player.HasCooldown(Cooldowns.AshenRing.ID) && hit.Crit && (ilmeranRing || ashenFlower))
                 {
                     // A few values are shared between Ilmeran Ring and Ashen Flower, so these are set here to avoid setting them twice for no reason
-                    Color colour = ashenRing ? Color.Gold : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat());
+                    Color colour = ashenRing ? new Color(255, 191, 73) : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat());
                     Vector2 contactPoint = proj.Center + (target.Center - proj.Center) / 2;
                     
                     // is the globalproj bool necessary now that there's a cooldown. probably not i think.........
@@ -35,32 +35,38 @@ namespace RoleplayAddon.Core.ModPlayers
                         int damage = ashenRing ? AshenRing.Damage : IlmeranRing.Damage;
                         float radius = ashenRing ? AshenRing.Radius : IlmeranRing.Radius;
                         float scale = ashenRing ? 0.12f: 0.09f;
-
-                        // Only the visual effect for the rings' effect is handled directly here
-                        // Damage is handled by IlmeranRingProj
-                        CustomPulse splash = new(
-                            contactPoint, 
-                            Vector2.Zero, 
-                            colour, 
-                            "CalamityMod/Particles/FlameExplosion", 
-                            Vector2.One, 
-                            Main.rand.NextFloat(), 
-                            0f, 
-                            scale, 
-                            48);
-                        GeneralParticleHandler.SpawnParticle(splash);
-                        /* if (ashenRing)
+                        
+                        if (ashenRing)
                         {
-                            for (int i = 0; i < 8; i++)
+                            CustomPulse flash = new(
+                                contactPoint, 
+                                Vector2.Zero, 
+                                colour, 
+                                "CalamityMod/Particles/FlameExplosion", 
+                                Vector2.One, 
+                                Main.rand.NextFloat(), 
+                                0f, 
+                                scale, 
+                                48);
+                            GeneralParticleHandler.SpawnParticle(flash);
+                        }
+                        else
+                        {
+                            DirectionalPulseRing pulse = new(contactPoint, Vector2.Zero, colour, Vector2.One, 0, 0f, scale, 36);
+                            GeneralParticleHandler.SpawnParticle(pulse);
+                            for (int i = 0; i < 3; i++)
                             {
-                                Vector2 relativePos = Main.rand.NextVector2CircularEdge(32 + i/2, 32 + i/2);
-                                FireParticle fire = new(contactPoint + relativePos, 36, 1f, 0.5f, Color.Gold * 1.5f, Color.Gold);
-                                GeneralParticleHandler.SpawnParticle(fire); 
-
-                                FlameParticle flame = new(contactPoint + relativePos, 36, 0.3f, 1f, Color.Gold * 1.5f, Color.Gold);
-                                GeneralParticleHandler.SpawnParticle(flame);
+                                Vector2 velocity = Main.rand.NextVector2CircularEdge(12, 12);
+                                WaterFlavoredParticle splash = new(
+                                    contactPoint, 
+                                    velocity, 
+                                    true, 
+                                    60, 
+                                    2f, 
+                                    colour);
+                                GeneralParticleHandler.SpawnParticle(splash);
                             }
-                        } */
+                        }
 
                         foreach (NPC n in Main.ActiveNPCs)
                         {
@@ -100,7 +106,7 @@ namespace RoleplayAddon.Core.ModPlayers
                                 ashenRing ? 1 : 0);
                         }
                     }
-                    AshenRingCooldown = AshenRing.Cooldown;
+                    Player.AddCooldown(Cooldowns.AshenRing.ID, AshenRing.Cooldown);
                 }
             }
         }

@@ -5,7 +5,6 @@ using ReLogic.Content;
 using RoleplayAddon.Content.Accessories;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RoleplayAddon.Content.Projectiles.Healing
@@ -13,11 +12,13 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 	public class AshenFlowerProj : ModProjectile
 	{
         private const float HomingSpeed = 5f;
+        private const int Height = 14;
+        private const int Width = 26;
 
+        private bool hasHealedOwner = false;
+        private Color baseColour = new(255, 191, 73);
         private float radius;
         private int framesSinceFlicker = 0;
-        private readonly int height = 14;
-        private readonly int width = 26;
 
 		public override void SetDefaults()
 		{
@@ -36,7 +37,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             // (This buffs several aspects of the projectile)
             if (Projectile.ai[0] == 1)
             {
-                Projectile.timeLeft += 100;
+                Projectile.timeLeft += 50;
             }
         }
 
@@ -56,12 +57,12 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             Projectile.velocity *= 0.95f;
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.scale = MathHelper.Lerp(0.1f, 1f, (float)Projectile.timeLeft/300);
-            Projectile.width = (int)(Projectile.scale * width);
-            Projectile.height = (int)(Projectile.scale * height);
+            Projectile.width = (int)(Projectile.scale * Width);
+            Projectile.height = (int)(Projectile.scale * Height);
 
             // I wanted to just draw this in PreDraw but. Not working! and i feel like this is more expensive...
             float glowScale = (float)Projectile.timeLeft / 150;
-            BloomParticle glow = new(Projectile.Center, Vector2.Zero, Color.Gold * 0.5f, glowScale, glowScale * 0.8f, 3);
+            BloomParticle glow = new(Projectile.Center, Vector2.Zero, baseColour * 0.8f, glowScale, glowScale * 0.8f, 3);
             GeneralParticleHandler.SpawnParticle(glow);
 
             // If the player is within the glow, the petal will drift towards them
@@ -83,6 +84,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             if (Projectile.Hitbox.Intersects(player.Hitbox))
             {
                 player.Heal((int)(player.statLifeMax2 * AshenFlower.HealFactor));
+                hasHealedOwner = true;
                 Projectile.Kill();
             }
 
@@ -93,7 +95,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
                 {
                     Vector2 velocity = Main.rand.NextVector2Circular(6, 6);
                     Color colour = Color.Lerp(Color.Gold, Color.Red, Main.rand.NextFloat());
-                    GlowOrbParticle ember = new(Projectile.Center, velocity, i == 0, 24, 0.2f, colour, GlowCenter: true);
+                    GlowOrbParticle ember = new(Projectile.Center, velocity, i == 0, 24, 0.2f * (i + 1), colour);
                     GeneralParticleHandler.SpawnParticle(ember);
                 }
             }
@@ -115,22 +117,27 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 
         public override void OnKill(int timeLeft)
         {
-            float glowScale = (float)timeLeft / 150;
-            DirectionalPulseRing pulse = new(Projectile.Center, Vector2.Zero, Color.Gold, Vector2.One, 0, 0, glowScale, 24);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            if (hasHealedOwner)
+            {
+                float glowScale = (float)timeLeft / 150;
+                DirectionalPulseRing pulse = new(Projectile.Center, Vector2.Zero, baseColour, Vector2.One, 0, 0, glowScale, 24);
+                GeneralParticleHandler.SpawnParticle(pulse);
+            }
+            else
+            {
+                // This is meant to be like a flame flickering brightly the moment before it goes out
+                // Not fully sold on it but I definitely want SOMETHING similar. I think.
+                float glowScale = 1f;
+                BloomParticle glow = new(Projectile.Center, Vector2.Zero, baseColour, 0f, glowScale, 15);
+                GeneralParticleHandler.SpawnParticle(glow);
+            }
         }
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-            /* Texture2D glowTex = ModContent.Request<Texture2D>("CalamityMod/Particles/Light", AssetRequestMode.ImmediateLoad).Value;
-            Rectangle glowRectangle = new(0, 0, glowTex.Width, glowTex.Height);
-            Vector2 glowOrigin = glowRectangle.Size() / 2f;
-            float glowScale = 3 * (float)Projectile.timeLeft / 150;
-            Main.EntitySpriteDraw(glowTex, Projectile.Center, glowRectangle, Color.Gold, 0, glowOrigin, glowScale, SpriteEffects.None); */
-
-			Texture2D tex = ModContent.Request<Texture2D>("RoleplayAddon/Content/Projectiles/Healing/AshenFlowerProj", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D tex = ModContent.Request<Texture2D>("RoleplayAddon/Content/Projectiles/Healing/AshenFlowerProj", AssetRequestMode.ImmediateLoad).Value;
 			Rectangle rectangle = new(0, 0, tex.Width, tex.Height);
-            Color colour = Color.Lerp(Color.DimGray, Color.White, (float)Projectile.timeLeft / 300);
+            Color colour = Color.Lerp(Color.Black, Color.White, (float)Projectile.timeLeft / 300);
 			float rotation = Projectile.rotation;
 			Vector2 origin = rectangle.Size() / 2f;
 			float scale = Projectile.scale;

@@ -1,5 +1,4 @@
 ﻿using CalamityMod.Items;
-using Microsoft.Xna.Framework;
 using RoleplayAddon.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -11,7 +10,7 @@ namespace RoleplayAddon.Content.Accessories
 	{
 		public override string Texture => "Terraria/Images/Item_3989";
 
-		public const float HealFactor = 0.025f;
+		public const float HealFactor = 0.01f;
 
 		public override void SetDefaults()
 		{

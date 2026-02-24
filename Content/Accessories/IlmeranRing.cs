@@ -1,5 +1,4 @@
-﻿using System.Reflection.Metadata;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using RoleplayAddon.Utilities;
 using Terraria;
 using Terraria.ID;
