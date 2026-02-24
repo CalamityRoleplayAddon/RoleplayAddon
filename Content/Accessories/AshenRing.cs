@@ -1,8 +1,10 @@
 ﻿using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using RoleplayAddon.Core.ModPlayers;
 using RoleplayAddon.Utilities;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RoleplayAddon.Content.Accessories
@@ -27,5 +29,16 @@ namespace RoleplayAddon.Content.Accessories
 			modPlayer.ashenRing = true;
 			modPlayer.ilmeranRing = true;
 		}
+
+        public override void AddRecipes()
+        {
+			CreateRecipe().
+				AddIngredient<AshenFlower>().
+				AddIngredient<IlmeranRing>().
+				AddIngredient<DivineGeode>(5).
+				AddIngredient(ItemID.LifeCrystal).
+				AddTile(TileID.TinkerersWorkbench).
+				Register();
+        }
 	}
 }

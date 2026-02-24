@@ -120,7 +120,8 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             if (hasHealedOwner)
             {
                 float glowScale = (float)timeLeft / 150;
-                DirectionalPulseRing pulse = new(Projectile.Center, Vector2.Zero, baseColour, Vector2.One, 0, 0, glowScale, 24);
+                Color colour = new(54, 209, 54);     // Same green as Sanctified Spark's healing star
+                DirectionalPulseRing pulse = new(Projectile.Center, Vector2.Zero, colour, Vector2.One, 0, 0, glowScale, 24);
                 GeneralParticleHandler.SpawnParticle(pulse);
             }
             else

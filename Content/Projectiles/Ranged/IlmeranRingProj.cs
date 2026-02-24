@@ -1,5 +1,6 @@
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
+using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework;
 using RoleplayAddon.Utilities;
 using Terraria;
@@ -26,7 +27,7 @@ namespace RoleplayAddon.Content.Projectiles.Ranged
             }
             else
             {
-                target.AddBuff(ModContent.BuffType<RiptideDebuff>(), 180);
+                target.AddBuff(ModContent.BuffType<Eutrophication>(), 180);
             }
         }
 
