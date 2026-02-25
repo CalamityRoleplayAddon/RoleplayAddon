@@ -26,8 +26,7 @@ namespace RoleplayAddon.Content.Accessories
 
 		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {
-            RPPlayer modPlayer = player.RPify();
-			return !(modPlayer.ilmeranRing || modPlayer.ashenFlower);
+			return incomingItem.type != ModContent.ItemType<IlmeranRing>() && incomingItem.type != ModContent.ItemType<AshenFlower>();
         }
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

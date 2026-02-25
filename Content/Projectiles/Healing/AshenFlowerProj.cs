@@ -56,7 +56,8 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             framesSinceFlicker--;
             if (framesSinceFlicker <= 0)
             {
-                Projectile.timeLeft += Main.rand.Next(-10, 30);
+                Projectile.timeLeft += Main.rand.NextBool() ? 30 : -10;
+                //Projectile.timeLeft += Main.rand.Next(-10, 30);
                 framesSinceFlicker = Main.rand.Next(40, 80);
             }
 
@@ -68,9 +69,8 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 
             if (Projectile.velocity.Length() > 1 && !Player.RPify().ashenFlowerReduced)
             {
-                Vector2 vel = -Projectile.velocity * 0.1f;
-                GlowOrbParticle trail = new(Projectile.Center, vel, false, 18, 0.5f, Color.Gold);
-                //SparkParticle trail = new(Projectile.Center, vel, false, 18, 0.5f, Color.Gold);     // maybe change to gloworb or smth ?
+                Vector2 vel = Projectile.velocity * 0.01f;
+                SparkParticle trail = new(Projectile.Center, vel, false, 18, 0.5f, Color.Gold);
                 GeneralParticleHandler.SpawnParticle(trail);
             }
 
@@ -93,7 +93,8 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             if (Projectile.Center.Distance(Player.Center) < radius)
             {
                 Vector2 direction = Projectile.Center.DirectionTo(Player.Center);
-                Projectile.velocity = HomingSpeed * direction;
+                // my fucking up homing code <3 10 is inertia
+                Projectile.velocity = Projectile.velocity + HomingSpeed * direction / 10;
                 //Player.RPify().ashenFlowerGlowing = true;
             }
             if (Projectile.Hitbox.Intersects(Player.Hitbox))
