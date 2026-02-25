@@ -5,11 +5,14 @@ using Microsoft.Xna.Framework;
 using RoleplayAddon.Utilities;
 using Terraria;
 using Terraria.ModLoader;
+using RoleplayAddon.Content.Accessories;
 
 namespace RoleplayAddon.Content.Projectiles.Ranged
 {
     public class IlmeranRingproj : ModProjectile
     {
+        // ai[0] is 1 if the owner has the Ashen Ring equipped, 0 otherwise
+        // ai[1] is the incident NPC's whoAmI, used to stop certain effects from applying to the NPC hit by the critting projectile
         public override string Texture => "CalamityMod/Projectiles/InvisibleProj";
 
         private Player Player => Main.player[Projectile.owner];
@@ -32,47 +35,43 @@ namespace RoleplayAddon.Content.Projectiles.Ranged
             {
                 target.AddBuff(ModContent.BuffType<Eutrophication>(), 180);
             }
-        }
 
-        public override void OnKill(int timeLeft)
-        {
-            // Was considering putting this in OnHitNPC but that would cancel the visual effect for the Ashen Ring if the NPC dies from the original projectile
-            bool ashen = Projectile.ai[0] == 1;
-            Color colour = ashen ? Color.Gold : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat());
-            if (Player.RPify().ilmeranRingReduced)
+            if (target.whoAmI != (int)Projectile.ai[1])
             {
-                colour *= 0.5f;
-            }
+                bool ashen = Projectile.ai[0] == 1;
+                Color colour = ashen ? AshenRing.Colour : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat());
+                colour *= Player.RPify().ilmeranRingReduced ? 0.5f : 1f;
+                float scale = ashen ? 0.1f : 0.075f;
 
-            CustomPulse pulse = new(
+                CustomPulse pulse = new(
                 Projectile.Center, 
                 Vector2.Zero, 
                 colour, 
-                "CalamityMod/Particles/BloomRing", 
+                "CalamityMod/Particles/BloomRingThinLarge", 
                 Vector2.One, 
                 Main.rand.NextFloat(), 
-                0.1f, 
-                ashen ? 1f : 0.75f, 
-                24, 
-                true);
-            GeneralParticleHandler.SpawnParticle(pulse);
+                0, 
+                scale,
+                24);
+                GeneralParticleHandler.SpawnParticle(pulse);
 
-            if (ashen)
-            {
-                for (int i = 0; i < 5; i++)
+                if (ashen)
                 {
-                    Vector2 velocity = Main.rand.NextVector2CircularEdge(6 + i/2, 6 + i/2);
-                    SparkParticle spark = new(Projectile.Center, velocity, false, 24, 0.5f, colour);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Vector2 velocity = Main.rand.NextVector2CircularEdge(6 + i/2, 6 + i/2);
+                        SparkParticle spark = new(Projectile.Center, velocity, false, 24, 0.5f, colour);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
                 }
-            }
-            else
-            {
-                for (int i = 0; i < 5; i++)
+                else
                 {
-                    Vector2 velocity = Main.rand.NextVector2CircularEdge(6 + i/2, 6 + i/2);
-                    WaterFlavoredParticle droplet = new(Projectile.Center, velocity, true, 36, 0.5f, colour);
-                    GeneralParticleHandler.SpawnParticle(droplet);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Vector2 velocity = Main.rand.NextVector2CircularEdge(6 + i/2, 6 + i/2);
+                        WaterFlavoredParticle droplet = new(Projectile.Center, velocity, true, 36, 0.5f, colour);
+                        GeneralParticleHandler.SpawnParticle(droplet);
+                    }
                 }
             }
         }

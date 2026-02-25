@@ -22,12 +22,13 @@ namespace RoleplayAddon.Core.DrawLayers
             Player player = drawInfo.drawPlayer;
             int hairWidth = player.hairFrame.Width;
             
-            Texture2D tex =  ModContent.Request<Texture2D>("CalamityMod/Particles/Sparkle", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D tex1 =  ModContent.Request<Texture2D>("RoleplayAddon/Core/DrawLayers/AshenFlowerGlow", AssetRequestMode.ImmediateLoad).Value;
+            Rectangle rect1 = new(0, 0, tex1.Width, tex1.Height);
             Vector2 playerCenter = player.RotatedRelativePoint(player.Center);
-            Vector2 offset = new(hairWidth/2, -player.height/2);
+            Vector2 offset = new(10 * -player.direction, -player.height/2 + 6);
             Vector2 drawPos = playerCenter - Main.screenPosition + offset;
-            Rectangle rect = new(0, 0, tex.Width, tex.Height);
-            drawInfo.DrawDataCache.Add(new DrawData(tex, drawPos, rect, Color.Gold, 0f, rect.Size() / 2, 0.2f, SpriteEffects.None));
+            DrawData d1 = new(tex1, drawPos, rect1, Color.Gold * 0.5f, player.headRotation, rect1.Size() / 2, 0.05f, SpriteEffects.None);
+            drawInfo.DrawDataCache.Add(d1);
         }
     }
-} */
+}  */

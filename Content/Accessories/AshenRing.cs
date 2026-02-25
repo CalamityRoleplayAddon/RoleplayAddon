@@ -1,6 +1,7 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
 using RoleplayAddon.Core.ModPlayers;
 using RoleplayAddon.Utilities;
 using Terraria;
@@ -14,6 +15,7 @@ namespace RoleplayAddon.Content.Accessories
 		public const float Radius = 128f;
 		public const int Cooldown = 30;		// INCREASE BACK TO 300 AFTER DEMO IS FILMED RAHHHH!!!!!!!
 		public const int Damage = 500;
+		public static readonly Color Colour = new(255, 191, 73);
 
 		public override void SetDefaults()
 		{

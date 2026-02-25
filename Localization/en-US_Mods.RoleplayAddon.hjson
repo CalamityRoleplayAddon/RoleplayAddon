@@ -51,9 +51,10 @@ Items: {
 		Tooltip:
 			'''
 			Landing a critical hit with a ranged weapon will spawn a number of petals glowing with profaned energy 
-			These petals heal their owner on contact but have fixed lifespans, slowly burning up under the heat of Her flames
+			These petals heal their owner on contact but have short lifespans, slowly burning up under the heat of Her flames
 			If the owner is close enough, the petals will gravitate towards the flower
 			This effect has a 5-second cooldown
+			Visual and audio effects are reduced if visibility is disabled
 			[c/ff8c00:'Its perianth pulses with the light of Her holy flame']
 			'''
 	}
@@ -64,9 +65,10 @@ Items: {
 			'''
 			Landing a critical hit with a ranged weapon will spawn a flash of holy fire that damages nearby enemies and inflicts Holy Flames
 			This flash will also spawn a number of petals glowing with profaned energy
-			These petals heal their owner on contact but have fixed lifespans, slowly burning up under the lasting heat of Her flames
+			These petals heal their owner on contact but have short lifespans, slowly burning up under the lasting heat of Her flames
 			If the owner is close enough, the petals will gravitate towards the ring
 			This effect has a 5-second cooldown
+			Visual and audio effects are reduced if visibility is disabled
 			[c/ff8c00:'Not even Her holy flame could outshine their love']
 			'''
 	}
@@ -77,8 +79,14 @@ Items: {
 			'''
 			Landing a critical hit with a ranged weapon will release a splash of icy water that damages nearby enemies and inflicts Riptide
 			This burst has a cooldown of 5 seconds and 20 armour penetration
+			Visual and audio effects are reduced if visibility is disabled
 			[c/00bbff:'something something, flavour tooltip']
 			'''
+	}
+
+	Ringeffects: {
+		DisplayName: Ringeffects
+		Tooltip: ""
 	}
 }
 

@@ -12,6 +12,8 @@ namespace RoleplayAddon.Core.ModPlayers
 		public bool reduceEffects = true;		// for showcasing different things more easily. should remove later
 		private const int WhispersTargetLifespan = 240;
 
+		public int altRingEffects = 0;
+
 		public override void PreUpdate()
 		{
 			// Look through each marked NPC and increment the corresponding timer if the NPC is active

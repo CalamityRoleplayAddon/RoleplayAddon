@@ -19,7 +19,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
         private const int Width = 26;
 
         private bool hasHealedOwner = false;
-        private Color baseColour = new(255, 191, 73);
+        private Color baseColour = AshenRing.Colour;
         private float effectReduction;
         private float radius;
         private int framesSinceFlicker = 0;
@@ -66,6 +66,14 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             Projectile.width = (int)(Projectile.scale * Width);
             Projectile.height = (int)(Projectile.scale * Height);
 
+            if (Projectile.velocity.Length() > 1 && !Player.RPify().ashenFlowerReduced)
+            {
+                Vector2 vel = -Projectile.velocity * 0.1f;
+                GlowOrbParticle trail = new(Projectile.Center, vel, false, 18, 0.5f, Color.Gold);
+                //SparkParticle trail = new(Projectile.Center, vel, false, 18, 0.5f, Color.Gold);     // maybe change to gloworb or smth ?
+                GeneralParticleHandler.SpawnParticle(trail);
+            }
+
             // I wanted to just draw this in PreDraw but. Not working! and i feel like this is more expensive...
             float glowScale = (float)Projectile.timeLeft / 150;
             BloomParticle glow = new(Projectile.Center, Vector2.Zero, baseColour * 0.8f, glowScale, glowScale * 0.8f, 3);
@@ -86,7 +94,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             {
                 Vector2 direction = Projectile.Center.DirectionTo(Player.Center);
                 Projectile.velocity = HomingSpeed * direction;
-                Player.RPify().ashenFlowerGlowing = true;
+                //Player.RPify().ashenFlowerGlowing = true;
             }
             if (Projectile.Hitbox.Intersects(Player.Hitbox))
             {

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using RoleplayAddon.Content.Accessories;
 using RoleplayAddon.Content.Projectiles.Healing;
 using RoleplayAddon.Content.Projectiles.Ranged;
+using RoleplayAddon.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -29,7 +30,7 @@ namespace RoleplayAddon.Core.ModPlayers
                 {
                     // A few values are shared between Ilmeran Ring and Ashen Flower, so these are set here to avoid setting them twice for no reason
                     float effectReduction = ilmeranRingReduced ? 0.3f : 1f;
-                    Color colour = ashenRing ? new Color(255, 191, 73) * effectReduction 
+                    Color colour = ashenRing ? AshenRing.Colour * effectReduction 
                         : Color.Lerp(Color.DeepSkyBlue, Color.LightBlue, Main.rand.NextFloat()) * effectReduction;
                     Vector2 contactPoint = proj.Center + (target.Center - proj.Center) / 2;
                     
@@ -59,7 +60,7 @@ namespace RoleplayAddon.Core.ModPlayers
                         else
                         {
                             SoundEngine.PlaySound(SoundID.Item21 with { Volume = effectReduction }, contactPoint);
-                            DirectionalPulseRing pulse = new(contactPoint, Vector2.Zero, colour, Vector2.One, 0, 0f, scale, 36);
+                            DirectionalPulseRing pulse = new(contactPoint, Vector2.Zero, colour, Vector2.One, 0, 0f, 1f, 36);
                             GeneralParticleHandler.SpawnParticle(pulse);
                             for (int i = 0; i < 3; i++)
                             {
@@ -87,13 +88,14 @@ namespace RoleplayAddon.Core.ModPlayers
                                     damage, 
                                     3f, 
                                     Player.whoAmI, 
-                                    ashenRing ? 1: 0);
+                                    ashenRing ? 1: 0,
+                                    target.whoAmI);
                                 burst.scale = scale;
                             }
                         }
                     }
                 
-                    if (ashenFlower)
+                    if (ashenFlower && Player.RPify().altRingEffects == 0)
                     {
                         int count = ashenRing ? Main.rand.Next(2, 5) : Main.rand.Next(1, 4);
                         // Ashen Ring makes the two effects interact a little, so the flame explosion (Ilmeran Ring) propels the petals (Ashen Flower) faster
@@ -112,7 +114,7 @@ namespace RoleplayAddon.Core.ModPlayers
                                 Player.whoAmI, 
                                 ashenRing ? 1 : 0);
                         }
-                    }
+                    } 
                     Player.AddCooldown(Cooldowns.AshenRing.ID, AshenRing.Cooldown);
                 }
             }
