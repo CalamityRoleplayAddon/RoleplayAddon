@@ -14,7 +14,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 {
 	public class AshenFlowerProj : ModProjectile
 	{
-        private const float HomingSpeed = 5f;
+        private const float HomingAccel = 2f;
         private const int Height = 14;
         private const int Width = 26;
 
@@ -31,7 +31,6 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 			Projectile.height = 14;
 
 			Projectile.friendly = true;
-			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.timeLeft = 300;
 		}
@@ -56,8 +55,8 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             framesSinceFlicker--;
             if (framesSinceFlicker <= 0)
             {
-                Projectile.timeLeft += Main.rand.NextBool() ? 30 : -10;
-                //Projectile.timeLeft += Main.rand.Next(-10, 30);
+                //Projectile.timeLeft += Main.rand.NextBool() ? 30 : -10;
+                Projectile.timeLeft += Main.rand.Next(-10, 30);
                 framesSinceFlicker = Main.rand.Next(40, 80);
             }
 
@@ -88,14 +87,18 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             radius = ((ModContent.Request<Texture2D>("CalamityMod/Particles/BloomCircle", AssetRequestMode.ImmediateLoad).Value.Width / 2) - 35) * glowScale;
             if (Player.lifeMagnet)  // Heartreach. i think
             {
-                radius *= 1.5f;
+                radius *= 1.25f;
             }
             if (Projectile.Center.Distance(Player.Center) < radius)
             {
                 Vector2 direction = Projectile.Center.DirectionTo(Player.Center);
-                // my fucking up homing code <3 10 is inertia
-                Projectile.velocity = Projectile.velocity + HomingSpeed * direction / 10;
+                // my fucking up homing code <3 
+                Projectile.velocity = Projectile.velocity + HomingAccel * direction / 2;
                 //Player.RPify().ashenFlowerGlowing = true;
+
+                float connectionStrength = radius / Projectile.Center.Distance(Player.Center);
+                BloomLineVFX connection = new(Projectile.Center, Player.Center - Projectile.Center, 0.8f, baseColour * 0.25f * connectionStrength, 3, true);
+                GeneralParticleHandler.SpawnParticle(connection);
             }
             if (Projectile.Hitbox.Intersects(Player.Hitbox))
             {
@@ -105,7 +108,6 @@ namespace RoleplayAddon.Content.Projectiles.Healing
                 Projectile.Kill();
             }
 
-            // This creates ember-like particles, to fit the flame theme
             if (Projectile.timeLeft % 15 == 0)
             {
                 for (int i = 0; i < 2; i++)

@@ -7,6 +7,9 @@ give icy burst a bloom ring pulse
 canequipaccessory hook thingy didnt work sadge
 
 
+try making petal flickering more discrete ? like. either -10 or 30. no between
+
+
 make ring/flower glow on player!!
 
 
