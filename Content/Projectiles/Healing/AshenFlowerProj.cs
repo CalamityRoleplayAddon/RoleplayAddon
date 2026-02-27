@@ -14,12 +14,14 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 {
 	public class AshenFlowerProj : ModProjectile
 	{
-        private const float HomingAccel = 2f;
+        private const float HomingAccel = 0.2f;
+        private const float HomingMaxSpeed = 10f;
         private const int Height = 14;
         private const int Width = 26;
 
         private bool hasHealedOwner = false;
         private Color baseColour = AshenRing.Colour;
+        private Color healColour = new(54, 209, 54);
         private float effectReduction;
         private float radius;
         private int framesSinceFlicker = 0;
@@ -27,8 +29,8 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 26;
-			Projectile.height = 14;
+			Projectile.width = 16;
+			Projectile.height = 16;
 
 			Projectile.friendly = true;
 			Projectile.ignoreWater = true;
@@ -46,6 +48,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
 
             effectReduction = Player.RPify().ashenFlowerReduced ? 0.5f : 1f;
             baseColour *= effectReduction;
+            healColour *= effectReduction;
         }
 
         public override void AI()
@@ -66,16 +69,16 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             Projectile.width = (int)(Projectile.scale * Width);
             Projectile.height = (int)(Projectile.scale * Height);
 
-            if (Projectile.velocity.Length() > 1 && !Player.RPify().ashenFlowerReduced)
+            if (Projectile.velocity.Length() > 1 && !Player.RPify().ashenFlowerReduced && Projectile.timeLeft % 2 == 0)
             {
-                Vector2 vel = Projectile.velocity * 0.01f;
+                Vector2 vel = -Projectile.velocity * 0.01f;
                 SparkParticle trail = new(Projectile.Center, vel, false, 18, 0.5f, Color.Gold);
                 GeneralParticleHandler.SpawnParticle(trail);
             }
 
             // I wanted to just draw this in PreDraw but. Not working! and i feel like this is more expensive...
             float glowScale = (float)Projectile.timeLeft / 150;
-            BloomParticle glow = new(Projectile.Center, Vector2.Zero, baseColour * 0.8f, glowScale, glowScale * 0.8f, 3);
+            BloomParticle glow = new(Projectile.Center, Vector2.Zero, baseColour, glowScale, glowScale * 0.8f, 3);
             GeneralParticleHandler.SpawnParticle(glow);
 
             // If the player is within the glow, the petal will drift towards them
@@ -85,16 +88,20 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             // there are about 35 pixels of what I'm considering blank space that should not be included in the homing radius (which is why I'm then subtracting by 35),
             // and then multiplying by glowScale makes the homing radius decrease over time just as the glow's brightness does.
             radius = ((ModContent.Request<Texture2D>("CalamityMod/Particles/BloomCircle", AssetRequestMode.ImmediateLoad).Value.Width / 2) - 35) * glowScale;
-            if (Player.lifeMagnet)  // Heartreach. i think
+            if (Player.lifeMagnet)
             {
                 radius *= 1.25f;
             }
-            if (Projectile.Center.Distance(Player.Center) < radius)
+            if (Player.active && !Player.dead && Projectile.Center.Distance(Player.Center) < radius)
             {
-                Vector2 direction = Projectile.Center.DirectionTo(Player.Center);
-                // my fucking up homing code <3 
-                Projectile.velocity = Projectile.velocity + HomingAccel * direction / 2;
-                //Player.RPify().ashenFlowerGlowing = true;
+                float speed = Projectile.velocity.Length();
+                if (speed < HomingMaxSpeed)
+                {
+                    speed += HomingAccel;
+                }
+                float direction = Projectile.velocity.ToRotation();
+                float maxAngleChange = MathHelper.ToRadians(5);
+                Projectile.velocity = speed * direction.AngleTowards(Projectile.AngleTo(Player.Center), maxAngleChange).ToRotationVector2();
 
                 float connectionStrength = radius / Projectile.Center.Distance(Player.Center);
                 BloomLineVFX connection = new(Projectile.Center, Player.Center - Projectile.Center, 0.8f, baseColour * 0.25f * connectionStrength, 3, true);
@@ -139,8 +146,7 @@ namespace RoleplayAddon.Content.Projectiles.Healing
             if (hasHealedOwner)
             {
                 float glowScale = (float)timeLeft / 150;
-                Color colour = new Color(54, 209, 54) * effectReduction;
-                DirectionalPulseRing pulse = new(Projectile.Center, Vector2.Zero, colour, Vector2.One, 0, 0, glowScale, 24);
+                DirectionalPulseRing pulse = new(Projectile.Center, Vector2.Zero, healColour, Vector2.One, 0, 0, glowScale, 24);
                 GeneralParticleHandler.SpawnParticle(pulse);
             }
             else
