@@ -102,10 +102,6 @@ namespace RoleplayAddon.Content.Projectiles.Healing
                 float direction = Projectile.velocity.ToRotation();
                 float maxAngleChange = MathHelper.ToRadians(5);
                 Projectile.velocity = speed * direction.AngleTowards(Projectile.AngleTo(Player.Center), maxAngleChange).ToRotationVector2();
-
-                float connectionStrength = radius / Projectile.Center.Distance(Player.Center);
-                BloomLineVFX connection = new(Projectile.Center, Player.Center - Projectile.Center, 0.8f, baseColour * 0.25f * connectionStrength, 3, true);
-                GeneralParticleHandler.SpawnParticle(connection);
             }
             if (Projectile.Hitbox.Intersects(Player.Hitbox))
             {
