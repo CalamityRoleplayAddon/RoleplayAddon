@@ -53,10 +53,8 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs
             //if (NPC.homeless)
             {
                 int choice = Main.rand.Next(2) + 1;
-                return Language.GetTextValue($"Chat.Homeless{choice}");
+                return GetText($"Chat.Homeless{choice}");
             }
-
-            return base.GetChat();
         }
 
         public override void SetChatButtons(ref string button, ref string button2)

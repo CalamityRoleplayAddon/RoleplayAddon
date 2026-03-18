@@ -2,7 +2,7 @@ using CalamityMod.Cooldowns;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 
-namespace RoleplayAddon.Cooldowns
+namespace RoleplayAddon.Content.Cooldowns
 {
     public class AshenRing : CooldownHandler
     {
@@ -10,8 +10,8 @@ namespace RoleplayAddon.Cooldowns
         public override bool ShouldDisplay => true;
         public override LocalizedText DisplayName => Language.GetText("Mods.RoleplayAddon.Cooldowns.AshenRingCooldown"); 
         public override string Texture => "RoleplayAddon/Content/Accessories/AshenRing";
-        public override string OutlineTexture => $"RoleplayAddon/Cooldowns/{ID}Overlay";
-        public override string OverlayTexture => $"RoleplayAddon/Cooldowns/{ID}Overlay";
+        public override string OutlineTexture => $"RoleplayAddon/Content/Cooldowns/{ID}Overlay";
+        public override string OverlayTexture => $"RoleplayAddon/Content/Cooldowns/{ID}Overlay";
         public override Color OutlineColor => Color.DarkGoldenrod;
         public override Color CooldownStartColor => Color.Gold;
         public override Color CooldownEndColor => Color.Gold;

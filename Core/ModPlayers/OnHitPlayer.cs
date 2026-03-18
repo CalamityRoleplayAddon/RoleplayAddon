@@ -1,6 +1,7 @@
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
+using RoleplayAddon;
 using RoleplayAddon.Content.Accessories;
 using RoleplayAddon.Content.Projectiles.Healing;
 using RoleplayAddon.Content.Projectiles.Ranged;
@@ -26,7 +27,7 @@ namespace RoleplayAddon.Core.ModPlayers
 			if (proj.DamageType == DamageClass.Ranged)
 			{
 				// Ashen Ring effects
-                if (!Player.HasCooldown(Cooldowns.AshenRing.ID) && hit.Crit && (ilmeranRing || ashenFlower))
+                if (!Player.HasCooldown(Content.Cooldowns.AshenRing.ID) && hit.Crit && (ilmeranRing || ashenFlower))
                 {
                     // A few values are shared between Ilmeran Ring and Ashen Flower, so these are set here to avoid setting them twice for no reason
                     float effectReduction = ilmeranRingReduced ? 0.3f : 1f;
@@ -115,7 +116,7 @@ namespace RoleplayAddon.Core.ModPlayers
                                 ashenRing ? 1 : 0);
                         }
                     } 
-                    Player.AddCooldown(Cooldowns.AshenRing.ID, AshenRing.Cooldown);
+                    Player.AddCooldown(Content.Cooldowns.AshenRing.ID, AshenRing.Cooldown);
                 }
             }
         }
