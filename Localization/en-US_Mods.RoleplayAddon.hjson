@@ -1,6 +1,10 @@
 Items: {
 	AppleCrumble: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			{$CommonItemTooltip.MajorStats}
+			'Who would�ve thought the elemental of agony�s favorite food would be this?'
+			'''
 		DisplayName: Apple Crumble
 	}
 
@@ -12,39 +16,56 @@ Items: {
 	Weapons: {
 		Rogue: {
 			WhispersJavelin: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					[c/f1c0ff:Launches a high-velocity javelin trailed by snowfall that adds ice on enemy hits, stacking up to 30 times]
+					[c/fbfbfb:When the ice shatters, massive damage is dealt. Shatter damage increases diminishingly with ice stacks]
+					[c/fbfbfb:Ice shattering on one enemy starts a chain reaction, causing a bolt of magic to race between nearby iced targets and shatter their ice]
+					[c/fbfbfb:A shatter happens automatically when the 30th stack is applied]
+					[c/9cffee:Stealth strikes produce 8 orbiting stars that explode on contact with enemies]
+					[c/9cffee:If a javelin has hit an enemy within the last 4 seconds, the stars can home in on that enemy, shattering any ice on the target regardless of the stack count]
+					[c/9cffee:Stars will chase the closest enemy if they can no longer find javelin-marked enemies while homing, and will die after 8 seconds have passed if they never start homing]
+					'''
 				DisplayName: Whispers Javelin
-			}
-
-			WoS: {
-				DisplayName: Wo S
-				Tooltip: ""
 			}
 		}
 	}
 
-	Icefill: {
-		DisplayName: Icefill
-		Tooltip: ""
-	}
-
-	Woseffects: {
-		DisplayName: Woseffects
-		Tooltip: ""
-	}
-
 	AshenFlower: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			Landing a critical hit with a ranged weapon will spawn a number of petals glowing with profaned energy 
+			These petals heal their owner on contact but have short lifespans, slowly burning up under the heat of Her flames
+			If the owner is close enough, the petals will gravitate towards the flower
+			This effect has a 5-second cooldown
+			Visual and audio effects are reduced if visibility is disabled
+			[c/ff8c00:'Its perianth pulses with the light of Her holy flame']
+			'''
 		DisplayName: Ashen Flower
 	}
 
 	AshenRing: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			Landing a critical hit with a ranged weapon will spawn a flash of holy fire that damages nearby enemies and inflicts Holy Flames
+			This flash will also spawn a number of petals glowing with profaned energy
+			These petals heal their owner on contact but have short lifespans, slowly burning up under the lasting heat of Her flames
+			If the owner is close enough, the petals will gravitate towards the ring
+			This effect has a 5-second cooldown
+			Visual and audio effects are reduced if visibility is disabled
+			[c/ff8c00:'Not even Her holy flame could outshine their love']
+			'''
 		DisplayName: Ashen Ring
 	}
 
 	IlmeranRing: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			Landing a critical hit with a ranged weapon will release a splash of icy water that damages nearby enemies and inflicts Riptide
+			This burst has a cooldown of 5 seconds and 20 armour penetration
+			Visual and audio effects are reduced if visibility is disabled
+			[c/00bbff:'something something, flavour tooltip']
+			'''
 		DisplayName: Ilmeran Ring
 	}
 
@@ -58,10 +79,7 @@ Bestiary.Villain: girl
 Cooldowns.AshenRingCooldown: Ashen Ring Cooldown
 
 Projectiles: {
-	StarTestDummy.DisplayName: Star Test Dummy
 	WoSJavelin.DisplayName: Wo S Javelin
-	WoSStar.DisplayName: Wo S Star
-	AshenPetalProj.DisplayName: Ashen Petal Proj
 	WhispersStarProj.DisplayName: Whispers Star Proj
 	WhispersJavelinProj.DisplayName: Whispers Javelin Proj
 	WhispersIceShatterProj.DisplayName: Whispers Ice Shatter Proj
@@ -77,8 +95,8 @@ NPCs: {
 		QuestButton: Hero's Quest
 
 		Chat: {
-			Homeless1: I�d build myself a house, but I think you should do it yourself. Hah! I�m so villainous.
-			Homeless2: The Sun doesn�t like me all that much, I need a shelter against it.
+			Homeless1: I'd build myself a house, but I think you should do it yourself. Hah! I'm so villainous.
+			Homeless2: The Sun doesn't like me all that much, I need a shelter against it.
 		}
 
 		TownNPCMood: {
