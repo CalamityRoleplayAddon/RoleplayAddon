@@ -1,11 +1,137 @@
+Mods: {
+	RoleplayAddon: {
+		Items: {
+			AppleCrumble: {
+				DisplayName: Apple Crumble
+				Tooltip:
+					'''
+					{$CommonItemTooltip.MajorStats}
+					'Who would�ve thought the elemental of agony�s favorite food would be this?'
+					'''
+			}
+
+			EyeOfCamarune: {
+				DisplayName: Eye Of Camarune
+				Tooltip: ""
+			}
+
+			Weapons: {
+				Rogue: {
+					WhispersJavelin: {
+						DisplayName: Whispers Of Snowfall
+						Tooltip:
+							'''
+							[c/f1c0ff:Launches a high-velocity javelin trailed by snowfall that adds ice on enemy hits, stacking up to 30 times]
+							[c/fbfbfb:When the ice shatters, massive damage is dealt. Shatter damage increases diminishingly with ice stacks]
+							[c/fbfbfb:Ice shattering on one enemy starts a chain reaction, causing a bolt of magic to race between nearby iced targets and shatter their ice]
+							[c/fbfbfb:A shatter happens automatically when the 30th stack is applied]
+							[c/9cffee:Stealth strikes produce 8 orbiting stars that explode on contact with enemies]
+							[c/9cffee:If a javelin has hit an enemy within the last 4 seconds, the stars can home in on that enemy, shattering any ice on the target regardless of the stack count]
+							[c/9cffee:Stars will chase the closest enemy if they can no longer find javelin-marked enemies while homing, and will die after 8 seconds have passed if they never start homing]
+							'''
+					}
+
+					WoS: {
+						DisplayName: Wo S
+						Tooltip: ""
+					}
+				}
+			}
+
+			Icefill: {
+				DisplayName: Icefill
+				Tooltip: ""
+			}
+
+			Woseffects: {
+				DisplayName: Woseffects
+				Tooltip: ""
+			}
+
+			AshenFlower: {
+				DisplayName: Ashen Flower
+				Tooltip:
+					'''
+					Landing a critical hit with a ranged weapon will spawn a number of petals glowing with profaned energy 
+					These petals heal their owner on contact but have short lifespans, slowly burning up under the heat of Her flames
+					If the owner is close enough, the petals will gravitate towards the flower
+					This effect has a 5-second cooldown
+					Visual and audio effects are reduced if visibility is disabled
+					[c/ff8c00:'Its perianth pulses with the light of Her holy flame']
+					'''
+			}
+
+			AshenRing: {
+				DisplayName: Ashen Ring
+				Tooltip:
+					'''
+					Landing a critical hit with a ranged weapon will spawn a flash of holy fire that damages nearby enemies and inflicts Holy Flames
+					This flash will also spawn a number of petals glowing with profaned energy
+					These petals heal their owner on contact but have short lifespans, slowly burning up under the lasting heat of Her flames
+					If the owner is close enough, the petals will gravitate towards the ring
+					This effect has a 5-second cooldown
+					Visual and audio effects are reduced if visibility is disabled
+					[c/ff8c00:'Not even Her holy flame could outshine their love']
+					'''
+			}
+
+			IlmeranRing: {
+				DisplayName: Ilmeran Ring
+				Tooltip:
+					'''
+					Landing a critical hit with a ranged weapon will release a splash of icy water that damages nearby enemies and inflicts Riptide
+					This burst has a cooldown of 5 seconds and 20 armour penetration
+					Visual and audio effects are reduced if visibility is disabled
+					[c/00bbff:'something something, flavour tooltip']
+					'''
+			}
+
+			Ringeffects: {
+				DisplayName: Ringeffects
+				Tooltip: ""
+			}
+		}
+
+		NPCs: {
+			Villain: {
+				DisplayName: Villain
+				Census.SpawnCondtions: Defeat three unique bosses
+				ChatButton: Chat
+				QuestButton: Hero's Quest
+
+				Chat: {
+					Homeless1: I’d build myself a house, but I think you should do it yourself. Hah! I’m so villainous.
+					Homeless2: The Sun doesn’t like me all that much, I need a shelter against it.
+				}
+			}
+		}
+
+		Bestiary.Villain: girl
+		Cooldowns.AshenRingCooldown: Ashen Ring Cooldown
+
+		Projectiles: {
+			WhispersIceShatterProj.DisplayName: Whispers Ice Shatter Proj
+			WhispersJavelinProj.DisplayName: Whispers Javelin Proj
+			WhispersStarProj.DisplayName: Whispers Star Proj
+			StarTestDummy.DisplayName: Star Test Dummy
+			WoSJavelin.DisplayName: Wo S Javelin
+			WoSStar.DisplayName: Wo S Star
+			AshenPetalProj.DisplayName: Ashen Petal Proj
+			IlmeranRingproj.DisplayName: Ilmeran Ringproj
+			AshenFlowerProj.DisplayName: Ashen Flower Proj
+		}
+	}
+}
+
 Items: {
-	AppleCrumble: {
-		DisplayName: Apple Crumble
-		Tooltip:
-			'''
-			{$CommonItemTooltip.MajorStats}
-			'Who would�ve thought the elemental of agony�s favorite food would be this?'
-			'''
+	AshenFlower: {
+		DisplayName: Ashen Flower
+		Tooltip: ""
+	}
+
+	AshenRing: {
+		DisplayName: Ashen Ring
+		Tooltip: ""
 	}
 
 	EyeOfCamarune: {
@@ -13,93 +139,52 @@ Items: {
 		Tooltip: ""
 	}
 
-	Weapons: {
-		Rogue: {
-			WhispersJavelin: {
-				DisplayName: Whispers Of Snowfall
-				Tooltip:
-					'''
-					[c/f1c0ff:Launches a high-velocity javelin trailed by snowfall that adds ice on enemy hits, stacking up to 30 times]
-					[c/fbfbfb:When the ice shatters, massive damage is dealt. Shatter damage increases diminishingly with ice stacks]
-					[c/fbfbfb:Ice shattering on one enemy starts a chain reaction, causing a bolt of magic to race between nearby iced targets and shatter their ice]
-					[c/fbfbfb:A shatter happens automatically when the 30th stack is applied]
-					[c/9cffee:Stealth strikes produce 8 orbiting stars that explode on contact with enemies]
-					[c/9cffee:If a javelin has hit an enemy within the last 4 seconds, the stars can home in on that enemy, shattering any ice on the target regardless of the stack count]
-					[c/9cffee:Stars will chase the closest enemy if they can no longer find javelin-marked enemies while homing, and will die after 8 seconds have passed if they never start homing]
-					'''
-			}
-
-			WoS: {
-				DisplayName: Wo S
-				Tooltip: ""
-			}
-		}
-	}
-
-	Icefill: {
-		DisplayName: Icefill
-		Tooltip: ""
-	}
-
-	Woseffects: {
-		DisplayName: Woseffects
-		Tooltip: ""
-	}
-
-	AshenFlower: {
-		DisplayName: Ashen Flower
-		Tooltip:
-			'''
-			Landing a critical hit with a ranged weapon will spawn a number of petals glowing with profaned energy 
-			These petals heal their owner on contact but have short lifespans, slowly burning up under the heat of Her flames
-			If the owner is close enough, the petals will gravitate towards the flower
-			This effect has a 5-second cooldown
-			Visual and audio effects are reduced if visibility is disabled
-			[c/ff8c00:'Its perianth pulses with the light of Her holy flame']
-			'''
-	}
-
-	AshenRing: {
-		DisplayName: Ashen Ring
-		Tooltip:
-			'''
-			Landing a critical hit with a ranged weapon will spawn a flash of holy fire that damages nearby enemies and inflicts Holy Flames
-			This flash will also spawn a number of petals glowing with profaned energy
-			These petals heal their owner on contact but have short lifespans, slowly burning up under the lasting heat of Her flames
-			If the owner is close enough, the petals will gravitate towards the ring
-			This effect has a 5-second cooldown
-			Visual and audio effects are reduced if visibility is disabled
-			[c/ff8c00:'Not even Her holy flame could outshine their love']
-			'''
-	}
-
 	IlmeranRing: {
 		DisplayName: Ilmeran Ring
-		Tooltip:
-			'''
-			Landing a critical hit with a ranged weapon will release a splash of icy water that damages nearby enemies and inflicts Riptide
-			This burst has a cooldown of 5 seconds and 20 armour penetration
-			Visual and audio effects are reduced if visibility is disabled
-			[c/00bbff:'something something, flavour tooltip']
-			'''
+		Tooltip: ""
+	}
+
+	AppleCrumble: {
+		DisplayName: Apple Crumble
+		Tooltip: ""
 	}
 
 	Ringeffects: {
 		DisplayName: Ringeffects
 		Tooltip: ""
 	}
+
+	Weapons: {
+		Rogue: {
+			WhispersJavelin: {
+				DisplayName: Whispers Javelin
+				Tooltip: ""
+			}
+		}
+	}
 }
 
-Cooldowns.AshenRingCooldown: Ashen Ring Cooldown
+NPCs: {
+	Villain: {
+		DisplayName: Villain
+
+		TownNPCMood: {
+			Content: I am content.
+			NoHome: I hate not having a home.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
+		}
+	}
+}
 
 Projectiles: {
+	AshenFlowerProj.DisplayName: Ashen Flower Proj
+	IlmeranRingproj.DisplayName: Ilmeran Ringproj
 	WhispersIceShatterProj.DisplayName: Whispers Ice Shatter Proj
 	WhispersJavelinProj.DisplayName: Whispers Javelin Proj
 	WhispersStarProj.DisplayName: Whispers Star Proj
-	StarTestDummy.DisplayName: Star Test Dummy
-	WoSJavelin.DisplayName: Wo S Javelin
-	WoSStar.DisplayName: Wo S Star
-	AshenPetalProj.DisplayName: Ashen Petal Proj
-	IlmeranRingproj.DisplayName: Ilmeran Ringproj
-	AshenFlowerProj.DisplayName: Ashen Flower Proj
 }

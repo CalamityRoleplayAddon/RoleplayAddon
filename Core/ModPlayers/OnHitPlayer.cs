@@ -1,10 +1,10 @@
 using CalamityMod;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Summon;
 using Microsoft.Xna.Framework;
 using RoleplayAddon.Content.Accessories;
 using RoleplayAddon.Content.Projectiles.Healing;
 using RoleplayAddon.Content.Projectiles.Ranged;
+using RoleplayAddon.Core.Systems.Collections;
 using RoleplayAddon.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -118,6 +118,35 @@ namespace RoleplayAddon.Core.ModPlayers
                     Player.AddCooldown(Cooldowns.AshenRing.ID, AshenRing.Cooldown);
                 }
             }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (target.life <= 0 && !target.friendly && target.type != NPCID.TargetDummy)
+            {
+                OnKillNPC(target, target.SpawnedFromStatue, target.CountsAsACritter);
+            }
+        }
+
+        /// <summary>
+        /// Method to be called when a player damaging an NPC sets its life to 0 or below. Used because there's no hook
+        /// </summary>
+        public void OnKillNPC(NPC npc, bool spawnedFromStatue, bool critter)
+        {  
+            #region Villain Quest Kills
+            if (QuestActive && !spawnedFromStatue)
+            {
+                if (QuestKey == "Gravedigger" && (NPCID.Sets.Zombies[npc.type] || NPCID.Sets.Skeletons[npc.type] || RPNPCSets.IsModdedUndead[npc.type]))
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "BloodMoonFishing" && RPNPCSets.IsBloodMoonFishingEnemy[npc.type])
+                {
+                    QuestProgression++;
+                }
+                // and so on!
+            }
+            #endregion
         }
     }
 }

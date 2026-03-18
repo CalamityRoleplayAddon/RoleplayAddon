@@ -8,7 +8,7 @@ namespace RoleplayAddon.Cooldowns
     {
         public static new string ID => "AshenRing";
         public override bool ShouldDisplay => true;
-        public override LocalizedText DisplayName => Language.GetText("Cooldowns.AshenRingCooldown"); 
+        public override LocalizedText DisplayName => Language.GetText("Mods.RoleplayAddon.Cooldowns.AshenRingCooldown"); 
         public override string Texture => "RoleplayAddon/Content/Accessories/AshenRing";
         public override string OutlineTexture => $"RoleplayAddon/Cooldowns/{ID}Overlay";
         public override string OverlayTexture => $"RoleplayAddon/Cooldowns/{ID}Overlay";

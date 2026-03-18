@@ -136,10 +136,6 @@ namespace RoleplayAddon.Content.Projectiles.Rogue
                     Wander();
                     break;
                 case State.Chasing:
-                    if (modPlayer.WhispersTargetDict.Count == 0)
-                    {
-                        ChangeState(State.Wandering);
-                    }
                     GlobalProcesses();
                     if (modPlayer.WhispersTargetDict.Count == 0)
                     {

@@ -44,7 +44,6 @@ namespace RoleplayAddon.Core.Globals
 			}
 		}
 
-
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[ItemID.ThinIce].Value;

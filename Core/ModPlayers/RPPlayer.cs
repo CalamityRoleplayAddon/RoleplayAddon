@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RoleplayAddon.Content.NPCs.TownNPCs;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,8 +9,14 @@ namespace RoleplayAddon.Core.ModPlayers
 	// All ModPlayer files are partials of the RPPlayer class
 	public partial class RPPlayer : ModPlayer
 	{
+		public bool QuestActive;
+		public QuestDifficulties QuestDifficulty;
+		public string QuestKey;
+		public int QuestProgression;
+		public bool QuestRewardBladeSoulReceived;
+		public bool QuestRewardRazorReceived;
+
 		public Dictionary<NPC, int> WhispersTargetDict = [];
-		public bool reduceEffects = true;		// for showcasing different things more easily. should remove later
 		private const int WhispersTargetLifespan = 240;
 
 		public int altRingEffects = 0;
@@ -29,7 +36,6 @@ namespace RoleplayAddon.Core.ModPlayers
 
 		public override void PostUpdate()
 		{
-
 			if (WhispersTargetDict.Count > 0)
 			{
 				// Look at each NPC and remove it and its counter if:
