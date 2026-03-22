@@ -1,5 +1,5 @@
+using RoleplayAddon.Content.NPCs.TownNPCs.Villain;
 using System.Collections.Generic;
-using RoleplayAddon.Content.NPCs.TownNPCs;
 using Terraria;
 using Terraria.ModLoader;
 

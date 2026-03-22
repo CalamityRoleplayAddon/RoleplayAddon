@@ -3,7 +3,7 @@ Items: {
 		Tooltip:
 			'''
 			{$CommonItemTooltip.MajorStats}
-			'Who would�ve thought the elemental of agony�s favorite food would be this?'
+			'Who would've thought the elemental of agony's favorite food would be this?'
 			'''
 		DisplayName: Apple Crumble
 	}
@@ -73,6 +73,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Ringeffects
 	}
+
+	VillainEasyBag: {
+		Tooltip: ""
+		DisplayName: Villain Easy Bag
+	}
 }
 
 Bestiary.Villain: girl
@@ -91,21 +96,53 @@ NPCs: {
 	Villain: {
 		DisplayName: Villain
 		Census.SpawnCondtions: Defeat three unique bosses
-		ChatButton: Chat
 		QuestButton: Hero's Quest
 
+		Quests: {
+			Gravedigger: Gravedigger
+			BloodMoonFishing: Blood Moon Fishing
+			Clickbait: Clickbait
+			ShadowWizard: Shadow Wizard
+			TheMightyKraken: The Mighty Kraken
+		}
+
 		Chat: {
+			Normal1: What's that? You wanna be a hero? You've come to the right man!
+			Normal2: Hello everybody it's me, Mark (E) the Villain.
+			Normal3: Did you know I scale to High-Transcendental! You see, chainscaling off of Yharim's YharHar Buster, which we all know is universe+, we can place the Sword of Infinity in a first order cardinality set that...
+			Normal4: If you could, I would like a nice tea set for my next birthday.
+			Normal5: You may falter in your journey as much as you like, young warrior, just remember to get back up again.
 			Homeless1: I'd build myself a house, but I think you should do it yourself. Hah! I'm so villainous.
 			Homeless2: The Sun doesn't like me all that much, I need a shelter against it.
+			MoonLordHint: You know... that shining lamp in the dark sky has a monster chained to it. Shall I free it so you can prove your strength?
+			BloodMoon1: "{0}! Come on in! I know things look a little bad right now. Would you like some chocolate?"
+			BloodMoon2: Dude, if you don't leave like, right now, I'm seriously going to knock your teeth out.
+			Graveyard1: I like to spend some time memorizing the names on these tombstones. Only for a bit, though. I'm scared of ghosts.
+			Graveyard2: These grave markers all have your name on it. Why?
+			Space1: Every now and then the Sun likes to concentrate its rays into a singular beam aimed at my forehead.
+			Space2: One time I tried building a space station but I kept getting meteors thrown at me. I still don't know who did it.
+			Thunderstorm1: I heard that if you get hit by lightning, you can gain special powers. Have I tried it myself? Uh... yeah! That's why I'm so strong! You should do it too.
+			Thunderstorm2: If you're gonna let yourself get soaked, remember to take a bath afterwards. Wouldn't want ya to get sick.
+			Guide: Sigh, I'm going to miss {0}. I know why you had to do it, but—wait he's back already?!
+			SeaKing: There's a rumour going around that Amidias grows bigger when it rains. Something about the surface air drying him out normally. Who started this rumour? Why, me of course!
+			EasyHandIn: easy hand in text
+			ModerateHandIn: moderate hand in text
+			HeroicHandIn: heroic hand in text
+			HandInFailure: hand in failure. {0} {^0:enemy;enemies} left
+			Gravedigger: gravedigger quest give
+			BloodMoonFishing: blood moon fishing quest give
+			Clickbait: nymph quest give
+			ShadowWizard: tim quest give
+			TheMightyKraken: dreadnautilus quest give
 		}
 
 		TownNPCMood: {
 			Content: I am content.
 			NoHome: I hate not having a home.
-			FarFromHome: I am too far from home.
-			LoveSpace: I love having so much space.
-			DislikeCrowded: I dislike how crowded I am.
-			HateCrowded: I hate how crowded I am.
+			FarFromHome: I may have gotten myself exiled.
+			LoveSpace: Can never have too much space to experiment, right?
+			DislikeCrowded: Terrarian... there are too many people here. The beast within hungers.
+			HateCrowded: popcorn help i cant do mark dialogue.
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
 		}

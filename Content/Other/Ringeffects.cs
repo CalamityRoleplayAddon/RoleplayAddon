@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using RoleplayAddon.Core.ModPlayers;
 
 namespace RoleplayAddon.Content.Other
 {
@@ -20,12 +21,19 @@ namespace RoleplayAddon.Content.Other
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.RPify().altRingEffects++;
+            RPPlayer modPlayer = player.RPify();
+            modPlayer.QuestActive = false;
+            modPlayer.QuestProgression = 0;
+            modPlayer.QuestKey = "";
+
+
+            // hijacking for villain testing bc lazy
+            /* player.RPify().altRingEffects++;
             if (player.RPify().altRingEffects == 2)
             {
                 player.RPify().altRingEffects = 0;
             }
-            Main.NewText($"Ring effect mode: {player.RPify().altRingEffects}", Color.Violet);
+            Main.NewText($"Ring effect mode: {player.RPify().altRingEffects}", Color.Violet); */
             return false;
         }
     }

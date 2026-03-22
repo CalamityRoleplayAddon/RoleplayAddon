@@ -130,18 +130,46 @@ namespace RoleplayAddon.Core.ModPlayers
         }
 
         /// <summary>
-        /// Method to be called when a player damaging an NPC sets its life to 0 or below. Used because there's no hook
+        /// Method to be called when a player damaging an NPC sets its life to 0 or below.
+        /// Created because there is no hook for having an NPC's death affect specifically its killer. I think...
         /// </summary>
         public void OnKillNPC(NPC npc, bool spawnedFromStatue, bool critter)
         {  
             #region Villain Quest Kills
             if (QuestActive && !spawnedFromStatue)
             {
+                // Easy quests
                 if (QuestKey == "Gravedigger" && (NPCID.Sets.Zombies[npc.type] || NPCID.Sets.Skeletons[npc.type] || RPNPCSets.IsModdedUndead[npc.type]))
                 {
                     QuestProgression++;
                 }
+                else if (QuestKey == "Wattpad" && NPCID.Werewolf == npc.type)
+                {
+                    QuestProgression++;
+                }
+                // Moderate quests
                 else if (QuestKey == "BloodMoonFishing" && RPNPCSets.IsBloodMoonFishingEnemy[npc.type])
+                {
+                    QuestProgression++;
+                }
+                else if(QuestKey == "Clickbait" && NPCID.Nymph == npc.type)
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "Ragebait" && RPNPCSets.IsMimic[npc.type])
+                {
+                    QuestProgression++;
+                }
+                // Heroic quests
+                else if(QuestKey == "ShadowWizard" && NPCID.Tim == npc.type)
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "TheMightyKraken" && NPCID.BloodNautilus == npc.type)
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "RageBait" && NPCID.RuneWizard == npc.type)
                 {
                     QuestProgression++;
                 }

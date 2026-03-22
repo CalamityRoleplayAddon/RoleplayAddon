@@ -16,6 +16,9 @@ namespace RoleplayAddon.Core.Systems.Collections
 
         public static bool[] IsBloodMoonFishingEnemy = factory.CreateBoolSet(NPCID.ZombieMerman, NPCID.EyeballFlyingFish, 
             NPCID.BloodEelHead, NPCID.GoblinShark, NPCID.BloodNautilus);
+
+        public static bool[] IsMimic = factory.CreateBoolSet(NPCID.Mimic, NPCID.BigMimicCorruption, NPCID.BigMimicCrimson, 
+            NPCID.BigMimicHallow, NPCID.BigMimicJungle, NPCID.IceMimic, NPCID.PresentMimic);
     }
 
     public class RPNPCSetsSystem : ModSystem
