@@ -78,6 +78,26 @@ Items: {
 		Tooltip: ""
 		DisplayName: Villain Easy Bag
 	}
+
+	VillainHeroicBag: {
+		DisplayName: Villain Heroic Bag
+		Tooltip: ""
+	}
+
+	VillainHeroicHardmodeBag: {
+		DisplayName: Villain Heroic Hardmode Bag
+		Tooltip: ""
+	}
+
+	VillainModerateBag: {
+		DisplayName: Villain Moderate Bag
+		Tooltip: ""
+	}
+
+	VillainModerateHardmodeBag: {
+		DisplayName: Villain Moderate Hardmode Bag
+		Tooltip: ""
+	}
 }
 
 Bestiary.Villain: girl

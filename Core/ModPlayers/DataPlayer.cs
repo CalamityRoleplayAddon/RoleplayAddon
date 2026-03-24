@@ -11,6 +11,7 @@ namespace RoleplayAddon.Core.ModPlayers
             QuestActive = false;
             QuestProgression = 0;
             QuestKey = "";
+            //QuestKeyPrevious = "";
             QuestRewardBladeSoulReceived = false;
             QuestRewardRazorReceived = false;
         }
@@ -29,6 +30,7 @@ namespace RoleplayAddon.Core.ModPlayers
             tag["QuestActive"] = QuestActive;
             tag["QuestProgression"] = QuestProgression;
             tag["QuestKey"] = QuestKey;
+            //tag["QuestKeyPrevious"] = QuestKeyPrevious;
             tag["QuestRewardBladeSoulReceived"] = QuestRewardBladeSoulReceived;
             tag["QuestRewardRazorReceived"] = QuestRewardRazorReceived;
         }
@@ -38,6 +40,7 @@ namespace RoleplayAddon.Core.ModPlayers
             QuestActive = tag.GetBool("QuestActive");
             QuestProgression = tag.GetInt("QuestProgression");
             QuestKey = tag.GetString("QuestKey");
+            //QuestKeyPrevious = tag.GetString("QuestKeyPrevious");
             QuestRewardBladeSoulReceived = tag.GetBool("QuestRewardBladeSoulReceived");
             QuestRewardRazorReceived = tag.GetBool("QuestRewardRazorReceived");
         }

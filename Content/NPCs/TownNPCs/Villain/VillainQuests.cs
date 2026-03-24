@@ -1,4 +1,6 @@
+using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Systems.Quests;
 using RoleplayAddon.Content.GrabBags;
 using RoleplayAddon.Core.ModPlayers;
 using RoleplayAddon.Utilities;
@@ -85,9 +87,14 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs.Villain
         /// <returns></returns>
         public readonly static Dictionary<KeyValuePair<string, int>, KeyValuePair<QuestAreas, QuestAreas>> EasyQuests = new()
         {
-            // Change back to 35 for gravedigger, idk for werewolf
+            // Change back to 35 for gravedigger and the like, idk for werewolf
+            {new("Purification", 1), new(QuestAreas.None, QuestAreas.None)},
+            {new("GelatinWorldTour", 1), new(QuestAreas.None, QuestAreas.None)},
             {new("Gravedigger", 1), new(QuestAreas.PreHardMode, QuestAreas.None)},
-            {new("Wattpad", 1), new(QuestAreas.Hardmode, QuestAreas.None)},
+            {new("CaveCrawlies", 1), new(QuestAreas.PreHardMode, QuestAreas.None)},
+            {new("VengefulDivinity", 1), new(QuestAreas.Hardmode, QuestAreas.None)},
+            {new("ItsYharHarsFault", 1), new(QuestAreas.GolemDefeated, QuestAreas.None)},
+            {new("AshesToAshes", 1), new(QuestAreas.MoonLordDefeated, QuestAreas.None)},
         };
 
         /// <summary>
@@ -97,19 +104,23 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs.Villain
         public readonly static Dictionary<KeyValuePair<string, int>, KeyValuePair<QuestAreas, QuestAreas>> ModerateQuests = new()
         {
             {new("Clickbait", 1), new(QuestAreas.PreHardMode, QuestAreas.None)},
+            {new("GoblinFriend", 1), new(QuestAreas.PreHardMode, QuestAreas.None)},
             {new("BloodMoonFishing", 5), new(QuestAreas.BloodMoonActive, QuestAreas.None)},
             {new("Ragebait", 1), new(QuestAreas.Hardmode, QuestAreas.None)},
+            {new("FalseIdol", 1), new(QuestAreas.Hardmode, QuestAreas.None)},
         };
 
         /// <summary>
         /// Dictionary containing key details of each Heroic quest
         /// </summary>
-        /// <returns></returns>
         public readonly static Dictionary<KeyValuePair<string, int>, KeyValuePair<QuestAreas, QuestAreas>> HeroicQuests = new()
         {
+            {new("OneTerrarianArmy", 1), new(QuestAreas.None, QuestAreas.None)},
+            {new("Squashed", 1), new(QuestAreas.None, QuestAreas.None)},
             {new("ShadowWizard", 1), new(QuestAreas.PreHardMode, QuestAreas.None)},
             {new("TheMightyKraken", 1), new(QuestAreas.Hardmode, QuestAreas.BloodMoonActive)},
-            {new("RageBait", 1), new(QuestAreas.Hardmode, QuestAreas.None)},
+            {new("MoneyGang", 1), new(QuestAreas.Hardmode, QuestAreas.None)},
+            {new("RealDeal", 1), new(QuestAreas.Hardmode, QuestAreas.None)},
         };
 
         /// <summary>
@@ -161,6 +172,14 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs.Villain
                                 {
                                     possibleQuests.Add(item.Key.Key);
                                 }
+
+                                /* // Hesitant on this but, if an invasion is currently going on, the Villain will prioritise giving
+                                // the "beat an invasion" quest 
+                                if (Main.invasionType != 0)
+                                {
+                                    possibleQuests.Clear();
+                                    possibleQuests.Add("OneTerrarianArmy");
+                                } */
                             }
                         break;
                 }
@@ -243,6 +262,9 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs.Villain
                             {
                                 if (questProgress >= item.Key.Value)
                                 {
+                                    modPlayer.RedBeetle = 0;
+                                    modPlayer.CyanBeetle = 0;
+                                    modPlayer.VioletBeetle = 0;
                                     return GiveReward(player, difficulty);
                                 }
                                 else
@@ -284,18 +306,26 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs.Villain
                 player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<VillainEasyBag>());
                 player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.GoldCoin, GetCoinReward(difficulty));
             }
-
-            /* if (!player.RPify().QuestRewardBladeSoulReceived)
+            else if (difficulty == QuestDifficulties.Moderate)
             {
-                player.QuickSpawnItem(player.GetSource_GiftOrReward(), bladesoul);
-                player.RPify().QuestRewardBladeSoulReceived = true;
+                player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<VillainModerateBag>());
+                player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.GoldCoin, GetCoinReward(difficulty));
+            }
+            else
+            {
+                player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<VillainHeroicBag>());
+                player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.GoldCoin, GetCoinReward(difficulty));
             }
 
-            if (!player.RPify().QuestRewardRazorReceived)
+            if (!player.RPify().QuestRewardBladeSoulReceived && DownedBossSystem.downedCalamitas && DownedBossSystem.downedExoMechs && difficulty == QuestDifficulties.Heroic)
             {
-                player.QuickSpawnItem(player.GetSource_GiftOrReward(), razor);
-                player.RPify().QuestRewardRazorReceived = true;
-            } */
+                player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.SoulBottleFlight);
+            }
+
+            if (!player.RPify().QuestRewardRazorReceived && DownedBossSystem.downedCalamitas && DownedBossSystem.downedExoMechs && difficulty == QuestDifficulties.Heroic)
+            {
+                player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.Razorpine);
+            }
 
             ResetPlayerData(player);
             KeyValuePair<int, QuestDifficulties> result = new(0, difficulty);

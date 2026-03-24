@@ -43,11 +43,7 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs.Villain
             );
         }
 
-        public override List<string> SetNPCNameList()
-        {
-            List<string> name = ["Mark (E)"];
-            return name;
-        }
+        public override List<string> SetNPCNameList() => ["Mark (E)"];
 
         public override void AI()
         {

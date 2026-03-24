@@ -1,6 +1,7 @@
 using RoleplayAddon.Content.NPCs.TownNPCs.Villain;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RoleplayAddon.Core.ModPlayers
@@ -12,6 +13,7 @@ namespace RoleplayAddon.Core.ModPlayers
 		public bool QuestActive;
 		public QuestDifficulties QuestDifficulty;
 		public string QuestKey;
+		public string QuestKeyPrevious = "";
 		public int QuestProgression;
 		public bool QuestRewardBladeSoulReceived;
 		public bool QuestRewardRazorReceived;
@@ -33,6 +35,19 @@ namespace RoleplayAddon.Core.ModPlayers
 				}
 			}
 		}
+
+        public override bool OnPickup(Item item)
+        {
+            if (item.type == ItemID.SoulBottleFlight)		// CHANGE TO BLADE SOUL
+			{
+				QuestRewardBladeSoulReceived = true;
+			}
+			if (item.type == ItemID.Razorpine)				// CHANGE TO OKRAM'S RAZOR
+			{
+				QuestRewardRazorReceived = true;
+			}
+			return true;
+        }
 
 		public override void PostUpdate()
 		{

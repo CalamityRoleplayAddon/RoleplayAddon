@@ -1,7 +1,8 @@
+using System;
 using CalamityMod;
+using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
-using RoleplayAddon;
 using RoleplayAddon.Content.Accessories;
 using RoleplayAddon.Content.Projectiles.Healing;
 using RoleplayAddon.Content.Projectiles.Ranged;
@@ -16,6 +17,10 @@ namespace RoleplayAddon.Core.ModPlayers
 {
     public partial class RPPlayer : ModPlayer
     {
+        // Need to be tracked for the Squashed! Villain quest
+        public int RedBeetle = 0;
+        public int CyanBeetle = 0;
+        public int VioletBeetle = 0;
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             if (Main.myPlayer != Player.whoAmI)
@@ -139,11 +144,32 @@ namespace RoleplayAddon.Core.ModPlayers
             if (QuestActive && !spawnedFromStatue)
             {
                 // Easy quests
-                if (QuestKey == "Gravedigger" && (NPCID.Sets.Zombies[npc.type] || NPCID.Sets.Skeletons[npc.type] || RPNPCSets.IsModdedUndead[npc.type]))
+                if (QuestKey == "Purification" && (RPNPCSets.IsCorruptionEnemy[npc.type] || RPNPCSets.IsCrimsonEnemy[npc.type]))
                 {
                     QuestProgression++;
                 }
-                else if (QuestKey == "Wattpad" && NPCID.Werewolf == npc.type)
+                else if (QuestKey == "Gravedigger" && (NPCID.Sets.Zombies[npc.type] || NPCID.Sets.Skeletons[npc.type] || RPNPCSets.IsModdedUndead[npc.type]))
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "GelatinWorldTour" && RPNPCSets.IsSlime[npc.type])
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "CaveCrawlies" && (NPCID.GiantShelly == npc.type || NPCID.GiantShelly2 == npc.type || NPCID.Crawdad == npc.type 
+                                                        || NPCID.Crawdad2 == npc.type || RPNPCSets.IsSalamander[npc.type]))
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "VengefulDivinity" && RPNPCSets.IsHallowEnemy[npc.type])
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "ItsYharHarsFault" && RPNPCSets.IsPlagueEnemy[npc.type])
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "AshesToAshes" && RPNPCSets.IsProfanedEnemy[npc.type])
                 {
                     QuestProgression++;
                 }
@@ -156,11 +182,29 @@ namespace RoleplayAddon.Core.ModPlayers
                 {
                     QuestProgression++;
                 }
+                else if (QuestKey == "GoblinFriend" && NPCID.GoblinScout == npc.type)
+                {
+                    QuestProgression++;
+                }
                 else if (QuestKey == "Ragebait" && RPNPCSets.IsMimic[npc.type])
                 {
                     QuestProgression++;
                 }
+                else if (QuestKey == "FalseIdol" && ModContent.NPCType<EarthElemental>() == npc.type)
+                {
+                    QuestProgression++;
+                }
                 // Heroic quests
+                else if(QuestKey == "Squashed")
+                {
+                    if (NPCID.CochinealBeetle == npc.type) { RedBeetle++; }
+                    if (NPCID.CyanBeetle == npc.type) { CyanBeetle++; }
+                    if (NPCID.LacBeetle == npc.type) { VioletBeetle++; }
+                    // The quest needs all three beetles to have been killed at least 3 times, so the lowest
+                    // beetle count is the one we need to make sure is above 3
+                    QuestProgression = Math.Min(RedBeetle, CyanBeetle);
+                    QuestProgression = Math.Min(QuestProgression, VioletBeetle);
+                }
                 else if(QuestKey == "ShadowWizard" && NPCID.Tim == npc.type)
                 {
                     QuestProgression++;
@@ -169,7 +213,11 @@ namespace RoleplayAddon.Core.ModPlayers
                 {
                     QuestProgression++;
                 }
-                else if (QuestKey == "RageBait" && NPCID.RuneWizard == npc.type)
+                else if (QuestKey == "MoneyGang" && NPCID.RuneWizard == npc.type)
+                {
+                    QuestProgression++;
+                }
+                else if (QuestKey == "RealDeal" && NPCID.SandElemental == npc.type)
                 {
                     QuestProgression++;
                 }
