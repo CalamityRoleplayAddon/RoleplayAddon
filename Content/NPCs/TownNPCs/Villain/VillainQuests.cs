@@ -322,7 +322,7 @@ namespace RoleplayAddon.Content.NPCs.TownNPCs.Villain
                 player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.SoulBottleFlight);
             }
 
-            if (!player.RPify().QuestRewardRazorReceived && DownedBossSystem.downedCalamitas && DownedBossSystem.downedExoMechs && difficulty == QuestDifficulties.Heroic)
+            if (!player.RPify().QuestRewardRazorReceived && DownedBossSystem.downedPrimordialWyrm && difficulty == QuestDifficulties.Heroic)
             {
                 player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.Razorpine);
             }
