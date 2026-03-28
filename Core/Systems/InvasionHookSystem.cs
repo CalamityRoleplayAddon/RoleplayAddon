@@ -12,7 +12,7 @@ namespace RoleplayAddon.Core.Systems
         {
             if (Main.invasionProgress == Main.invasionProgressMax)
             {
-                foreach (Player player in Main.player)
+                foreach (Player player in Main.ActivePlayers)
                 {
                     RPPlayer modPlayer = player.RPify();
                     if (modPlayer.QuestKey == "OneTerrarianArmy")
